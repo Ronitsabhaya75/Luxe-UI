@@ -391,6 +391,44 @@ LuxeUI is built with best practices:
 - ✅ **Type-safe** design tokens
 - ✅ **Sendable** compliance for Swift 6
 
+## Project Structure
+
+```
+luxeUI/
+├── Sources/
+│   └── LuxeUI/
+│       ├── luxeUI.swift                # Main library entry point
+│       ├── Theme/
+│       │   ├── Theme.swift             # Theme model with design tokens
+│       │   ├── ThemeEnvironment.swift  # Environment key
+│       │   └── ThemeProvider.swift     # .luxeTheme() modifier
+│       ├── Components/
+│       │   ├── Containers/
+│       │   │   ├── GlassmorphismContainer.swift
+│       │   │   └── RefractiveGlassModifier.swift
+│       │   ├── Premium/
+│       │   │   └── PremiumComponents.swift
+│       │   ├── Progress/
+│       │   │   └── CircularProgressBar.swift
+│       │   ├── Sliders/
+│       │   │   └── MultiThumbSlider.swift
+│       │   └── Interactions/
+│       │       ├── SmartSpringEngine.swift
+│       │       └── PredictiveLayouts.swift
+│       └── Extensions/
+│           └── View+Theme.swift
+├── Tests/
+│   └── luxeUITests/
+│       └── luxeUITests.swift
+├── Examples/
+│   └── README.md
+├── docs/
+├── Package.swift
+├── README.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+└── LICENSE
+```
 
 ## License
 
