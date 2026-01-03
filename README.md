@@ -8,7 +8,12 @@
 </p>
 
 <p align="center">
-  <strong>The Premium UI Kit for 2026 • Alternative to Liquid UI for Lower macOS Versions</strong>
+  <img src="https://github.com/Ronitsabhaya75/Luxe-UI/actions/workflows/swift.yml/badge.svg" alt="Swift CI">
+  <img src="https://github.com/Ronitsabhaya75/Luxe-UI/actions/workflows/tests.yml/badge.svg" alt="Tests">
+</p>
+
+<p align="center">
+  <strong>The Premium UI Kit for 2026 - Alternative to Liquid UI for Lower macOS Versions</strong>
 </p>
 
 <p align="center">
@@ -344,6 +349,36 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 - Have a feature idea? [Start a discussion](https://github.com/yourusername/luxeui/discussions)
 - Want to contribute code? [Submit a PR](https://github.com/yourusername/luxeui/pulls)
 
+---
+
+## CI/CD Pipelines
+
+LuxeUI uses GitHub Actions for continuous integration and automated workflows:
+
+| Workflow | Badge | Description |
+|----------|-------|-------------|
+| **Swift CI** | ![Swift CI](https://github.com/Ronitsabhaya75/Luxe-UI/actions/workflows/swift.yml/badge.svg) | Builds package and runs tests on every push/PR |
+| **Tests** | ![Tests](https://github.com/Ronitsabhaya75/Luxe-UI/actions/workflows/tests.yml/badge.svg) | Runs 60 unit tests across 19 test suites |
+| **PR Labeler** | Auto | Automatically labels PRs based on changed files |
+
+### Automated PR Labels
+
+PRs are automatically labeled based on the files changed:
+
+| Label | Trigger |
+|-------|---------|
+| `component` | Changes to `Sources/LuxeUI/Components/` |
+| `theme` | Changes to `Sources/LuxeUI/Theme/` |
+| `premium` | Changes to Premium components |
+| `glass-effects` | Changes to Glassmorphism or Refractive Glass |
+| `interactions` | Changes to Smart Spring or Predictive Layouts |
+| `documentation` | Changes to `.md` files or `docs/` |
+| `tests` | Changes to `Tests/` |
+| `ci` | Changes to `.github/` workflows |
+| `build` | Changes to `Package.swift` |
+
+---
+
 ## 📄 **License**
 
 LuxeUI is available under the MIT license. See [LICENSE](LICENSE) for details.
@@ -395,6 +430,14 @@ LuxeUI is built with best practices:
 
 ```
 luxeUI/
+├── .github/
+│   ├── workflows/
+│   │   ├── swift.yml              # Build & test CI
+│   │   ├── tests.yml              # Dedicated test runner
+│   │   ├── pr-label-analysis.yml  # PR file analysis (read-only)
+│   │   └── pr-label-apply.yml     # Apply labels (write access)
+│   ├── labeler.yml                # Label configuration
+│   └── ISSUE_TEMPLATE/            # Issue templates
 ├── Sources/
 │   └── LuxeUI/
 │       ├── luxeUI.swift                # Main library entry point
@@ -419,7 +462,7 @@ luxeUI/
 │           └── View+Theme.swift
 ├── Tests/
 │   └── luxeUITests/
-│       └── luxeUITests.swift
+│       └── luxeUITests.swift       
 ├── Examples/
 │   └── README.md
 ├── docs/

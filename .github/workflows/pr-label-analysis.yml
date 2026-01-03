@@ -2,7 +2,7 @@ name: PR Label Analysis
 
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened]
+    types: [opened]
 
 permissions:
   contents: read
