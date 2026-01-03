@@ -1,0 +1,72 @@
+name: PR Label Apply
+
+on:
+  workflow_run:
+    workflows: ["PR Label Analysis"]
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+jobs:
+  apply-labels:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout: |
+            .github/labeler.yml
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: label-info
+          path: label-info/
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Read PR info
+        id: pr-info
+        run: |
+          PR_NUMBER=$(cat label-info/pr_number)
+          LABELS=$(cat label-info/labels)
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+          echo "labels=$LABELS" >> $GITHUB_OUTPUT
+          echo "PR #$PR_NUMBER - Labels: $LABELS"
+
+      - name: Apply labels
+        if: steps.pr-info.outputs.labels != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = parseInt('${{ steps.pr-info.outputs.pr_number }}');
+            const labelsString = '${{ steps.pr-info.outputs.labels }}';
+            
+            if (!labelsString) {
+              console.log('No labels to apply');
+              return;
+            }
+            
+            const labels = labelsString.split(',').filter(l => l.trim());
+            
+            if (labels.length === 0) {
+              console.log('No labels to apply');
+              return;
+            }
+            
+            console.log(`Applying labels to PR #${prNumber}: ${labels.join(', ')}`);
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              labels: labels
+            });
+            
+            console.log('Labels applied successfully!');

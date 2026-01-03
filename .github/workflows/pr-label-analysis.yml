@@ -1,0 +1,92 @@
+name: PR Label Analysis
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR number
+        id: pr
+        run: |
+          echo "number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+
+      - name: Analyze changed files
+        id: analyze
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          FILES=$(gh api repos/${{ github.repository }}/pulls/${{ steps.pr.outputs.number }}/files --jq '.[].filename')
+          
+          LABELS=""
+          
+          if echo "$FILES" | grep -q "Sources/LuxeUI/Components/"; then
+            LABELS="${LABELS}component,"
+          fi
+          
+          if echo "$FILES" | grep -q "Sources/LuxeUI/Theme/"; then
+            LABELS="${LABELS}theme,"
+          fi
+          
+          if echo "$FILES" | grep -q "Sources/LuxeUI/Extensions/"; then
+            LABELS="${LABELS}extensions,"
+          fi
+          
+          if echo "$FILES" | grep -q "Sources/LuxeUI/Components/Premium/"; then
+            LABELS="${LABELS}premium,"
+          fi
+          
+          if echo "$FILES" | grep -q -E "(Glassmorphism|RefractiveGlass)"; then
+            LABELS="${LABELS}glass-effects,"
+          fi
+          
+          if echo "$FILES" | grep -q "Sources/LuxeUI/Components/Interactions/"; then
+            LABELS="${LABELS}interactions,"
+          fi
+          
+          if echo "$FILES" | grep -q "Sources/LuxeUI/Components/Progress/"; then
+            LABELS="${LABELS}progress,"
+          fi
+          
+          if echo "$FILES" | grep -q "Sources/LuxeUI/Components/Sliders/"; then
+            LABELS="${LABELS}sliders,"
+          fi
+          
+          if echo "$FILES" | grep -q -E "(README|\.md$|docs/)"; then
+            LABELS="${LABELS}documentation,"
+          fi
+          
+          if echo "$FILES" | grep -q "Tests/"; then
+            LABELS="${LABELS}tests,"
+          fi
+          
+          if echo "$FILES" | grep -q ".github/"; then
+            LABELS="${LABELS}ci,"
+          fi
+          
+          if echo "$FILES" | grep -q "Package.swift"; then
+            LABELS="${LABELS}build,"
+          fi
+          
+          LABELS=$(echo "$LABELS" | sed 's/,$//')
+          
+          echo "labels=$LABELS" >> $GITHUB_OUTPUT
+          echo "Detected labels: $LABELS"
+
+      - name: Save analysis to artifact
+        run: |
+          mkdir -p label-info
+          echo "${{ steps.pr.outputs.number }}" > label-info/pr_number
+          echo "${{ steps.analyze.outputs.labels }}" > label-info/labels
+          
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: label-info
+          path: label-info/
+          retention-days: 1
