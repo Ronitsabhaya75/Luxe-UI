@@ -588,6 +588,9 @@ public struct RefractiveGlassCard<Content: View>: View {
         return copy
     }
     
+
+
+    
     public func onHoverEnd(_ action: @escaping () -> Void) -> RefractiveGlassCard {
         var copy = self
         copy.onHoverEnd = action
