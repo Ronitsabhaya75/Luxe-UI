@@ -338,6 +338,8 @@ public struct GlassmorphismModifier: ViewModifier {
     public init(configuration: GlassmorphismConfiguration = .default) {
         self.configuration = configuration
     }
+
+    
     
     public func body(content: Content) -> some View {
         content
