@@ -1,0 +1,30 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: macos-15
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build Package
+      run: swift build
+    
+    - name: Run All Tests
+      run: swift test --parallel
+    
+    - name: Test Summary
+      if: always()
+      run: |
+        echo "Test run completed"
+        echo "Tests are located in Tests/luxeUITests/luxeUITests.swift"
