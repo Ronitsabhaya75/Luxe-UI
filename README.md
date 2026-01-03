@@ -128,6 +128,7 @@ Beautiful animated mesh gradients like macOS 15.
 MeshGradientBackground(colors: [.purple, .pink, .blue])
 ```
 
+
 **Features:**
 - Floating animated orbs
 - Smooth continuous animation
