@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation - LuxeUI Documentation</title>
+    <link rel="stylesheet" href="../docs-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="top-nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-icon">✨</span>
+                <span class="logo-text">LuxeUI</span>
+                <span class="logo-badge">Docs</span>
+            </a>
+            <div class="nav-search">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" placeholder="Search documentation..." class="search-input">
+                <span class="search-shortcut">⌘K</span>
+            </div>
+            <div class="nav-links">
+                <a href="https://github.com/Ronitsabhaya75/Luxe-UI" class="nav-link" target="_blank">
+                    <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Getting Started</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="welcome.html" class="sidebar-link">Welcome</a></li>
+                        <li><a href="installation.html" class="sidebar-link active">Installation</a></li>
+                        <li><a href="quickstart.html" class="sidebar-link">Quickstart</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Theme System</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="../themes/overview.html" class="sidebar-link">Overview</a></li>
+                        <li><a href="../themes/presets.html" class="sidebar-link">Preset Themes</a></li>
+                        <li><a href="../themes/customization.html" class="sidebar-link">Customization</a></li>
+                        <li><a href="../themes/design-tokens.html" class="sidebar-link">Design Tokens</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Components</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="../components/refractive-glass.html" class="sidebar-link">Refractive Glass</a></li>
+                        <li><a href="../components/luxe-card.html" class="sidebar-link">LuxeCard</a></li>
+                        <li><a href="../components/luxe-button.html" class="sidebar-link">LuxeButton</a></li>
+                        <li><a href="../components/glassmorphism.html" class="sidebar-link">Glassmorphism</a></li>
+                        <li><a href="../components/circular-progress.html" class="sidebar-link">Circular Progress</a></li>
+                        <li><a href="../components/multi-thumb-slider.html" class="sidebar-link">Multi-Thumb Slider</a></li>
+                        <li><a href="../components/mesh-gradient.html" class="sidebar-link">Mesh Gradient</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Interactions</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="../interactions/smart-spring.html" class="sidebar-link">Smart Spring</a></li>
+                        <li><a href="../interactions/predictive-layouts.html" class="sidebar-link">Predictive Layouts</a></li>
+                        <li><a href="../interactions/haptics.html" class="sidebar-link">Haptic Feedback</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content">
+            <div class="content-container">
+                <div class="breadcrumb">
+                    <a href="welcome.html">Getting Started</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span>Installation</span>
+                </div>
+
+                <article class="docs-article">
+                    <h1>Installation</h1>
+                    <p class="lead">Add LuxeUI to your SwiftUI project in minutes using Swift Package Manager.</p>
+
+                    <div class="requirements-banner">
+                        <div class="requirements-grid">
+                            <div class="requirement-item">
+                                <span class="requirement-icon">📱</span>
+                                <span class="requirement-label">iOS 15+</span>
+                            </div>
+                            <div class="requirement-item">
+                                <span class="requirement-icon">💻</span>
+                                <span class="requirement-label">macOS 12+</span>
+                            </div>
+                            <div class="requirement-item">
+                                <span class="requirement-icon">🔶</span>
+                                <span class="requirement-label">Swift 5.9+</span>
+                            </div>
+                            <div class="requirement-item">
+                                <span class="requirement-icon">🎨</span>
+                                <span class="requirement-label">SwiftUI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 id="spm">Swift Package Manager (Recommended)</h2>
+                    <p>The easiest way to add LuxeUI to your project is through Xcode's built-in package manager.</p>
+
+                    <h3>Using Xcode</h3>
+                    <ol class="steps-list">
+                        <li>
+                            <strong>Open your project in Xcode</strong>
+                            <p>Navigate to <code>File → Add Packages...</code></p>
+                        </li>
+                        <li>
+                            <strong>Enter the repository URL</strong>
+                            <div class="code-block">
+                                <pre><code>https://github.com/Ronitsabhaya75/Luxe-UI</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                        </li>
+                        <li>
+                            <strong>Select version</strong>
+                            <p>Choose "Up to Next Major Version" and enter <code>1.0.0</code></p>
+                        </li>
+                        <li>
+                            <strong>Add to your target</strong>
+                            <p>Select your app target and click "Add Package"</p>
+                        </li>
+                    </ol>
+
+                    <h3>Using Package.swift</h3>
+                    <p>If you're developing a Swift package, add LuxeUI to your dependencies:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Package.swift</span>
+                        </div>
+                        <pre><code><span class="code-keyword">import</span> PackageDescription
+
+<span class="code-keyword">let</span> package = <span class="code-type">Package</span>(
+    name: <span class="code-string">"MyApp"</span>,
+    platforms: [
+        .iOS(.v15),
+        .macOS(.v12)
+    ],
+    dependencies: [
+        .package(
+            url: <span class="code-string">"https://github.com/Ronitsabhaya75/Luxe-UI.git"</span>,
+            from: <span class="code-string">"1.0.0"</span>
+        )
+    ],
+    targets: [
+        .target(
+            name: <span class="code-string">"MyApp"</span>,
+            dependencies: [<span class="code-string">"LuxeUI"</span>]
+        )
+    ]
+)</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="verify">Verify Installation</h2>
+                    <p>After installation, verify LuxeUI is working by importing it in your SwiftUI file:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">ContentView.swift</span>
+                        </div>
+                        <pre><code><span class="code-keyword">import</span> SwiftUI
+<span class="code-keyword">import</span> LuxeUI
+
+<span class="code-keyword">struct</span> <span class="code-type">ContentView</span>: <span class="code-type">View</span> {
+    <span class="code-keyword">var</span> body: <span class="code-keyword">some</span> <span class="code-type">View</span> {
+        <span class="code-type">LuxeCard</span> {
+            <span class="code-type">Text</span>(<span class="code-string">"LuxeUI is working! ✨"</span>)
+                .font(.headline)
+        }
+    }
+}</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <div class="callout callout-success">
+                        <div class="callout-icon">✅</div>
+                        <div class="callout-content">
+                            <strong>You're all set!</strong>
+                            <p>If your project builds successfully, LuxeUI is ready to use. Head to the <a href="quickstart.html">Quickstart guide</a> to create your first components.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="zero-dependencies">Zero Dependencies</h2>
+                    <p>LuxeUI is built entirely with native SwiftUI—no external dependencies required. This means:</p>
+                    <ul>
+                        <li>Faster build times</li>
+                        <li>Smaller app binary size</li>
+                        <li>No version conflicts with other packages</li>
+                        <li>Full compatibility with Apple's frameworks</li>
+                    </ul>
+
+                    <h2 id="troubleshooting">Troubleshooting</h2>
+
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>Package not found error</span>
+                                <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="m6 9 6 6 6-6"/>
+                                </svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Make sure you're using the correct repository URL and have internet access. Try resetting your package caches: <code>File → Packages → Reset Package Caches</code></p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>Deployment target too low</span>
+                                <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="m6 9 6 6 6-6"/>
+                                </svg>
+                            </button>
+                            <div class="accordion-content">
+                                <p>LuxeUI requires iOS 15+ or macOS 12+. Update your project's deployment target in <code>Build Settings → Deployment Target</code>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Page Navigation -->
+                <nav class="page-nav">
+                    <a href="welcome.html" class="page-nav-link prev">
+                        <span class="page-nav-label">Previous</span>
+                        <span class="page-nav-title">Welcome</span>
+                    </a>
+                    <a href="quickstart.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Quickstart</span>
+                    </a>
+                </nav>
+            </div>
+        </main>
+    </div>
+
+    <script src="../docs-script.js"></script>
+    <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+</body>
+</html>

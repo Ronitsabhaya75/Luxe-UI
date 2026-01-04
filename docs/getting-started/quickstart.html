@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quickstart - LuxeUI Documentation</title>
+    <link rel="stylesheet" href="../docs-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="top-nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-icon">✨</span>
+                <span class="logo-text">LuxeUI</span>
+                <span class="logo-badge">Docs</span>
+            </a>
+            <div class="nav-search">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" placeholder="Search documentation..." class="search-input">
+                <span class="search-shortcut">⌘K</span>
+            </div>
+            <div class="nav-links">
+                <a href="https://github.com/Ronitsabhaya75/Luxe-UI" class="nav-link" target="_blank">
+                    <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Getting Started</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="welcome.html" class="sidebar-link">Welcome</a></li>
+                        <li><a href="installation.html" class="sidebar-link">Installation</a></li>
+                        <li><a href="quickstart.html" class="sidebar-link active">Quickstart</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Theme System</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="../themes/overview.html" class="sidebar-link">Overview</a></li>
+                        <li><a href="../themes/presets.html" class="sidebar-link">Preset Themes</a></li>
+                        <li><a href="../themes/customization.html" class="sidebar-link">Customization</a></li>
+                        <li><a href="../themes/design-tokens.html" class="sidebar-link">Design Tokens</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Components</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="../components/refractive-glass.html" class="sidebar-link">Refractive Glass</a></li>
+                        <li><a href="../components/luxe-card.html" class="sidebar-link">LuxeCard</a></li>
+                        <li><a href="../components/luxe-button.html" class="sidebar-link">LuxeButton</a></li>
+                        <li><a href="../components/glassmorphism.html" class="sidebar-link">Glassmorphism</a></li>
+                        <li><a href="../components/circular-progress.html" class="sidebar-link">Circular Progress</a></li>
+                        <li><a href="../components/multi-thumb-slider.html" class="sidebar-link">Multi-Thumb Slider</a></li>
+                        <li><a href="../components/mesh-gradient.html" class="sidebar-link">Mesh Gradient</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Interactions</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="../interactions/smart-spring.html" class="sidebar-link">Smart Spring</a></li>
+                        <li><a href="../interactions/predictive-layouts.html" class="sidebar-link">Predictive Layouts</a></li>
+                        <li><a href="../interactions/haptics.html" class="sidebar-link">Haptic Feedback</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content">
+            <div class="content-container">
+                <div class="breadcrumb">
+                    <a href="welcome.html">Getting Started</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span>Quickstart</span>
+                </div>
+
+                <article class="docs-article">
+                    <h1>Quickstart</h1>
+                    <p class="lead">Get up and running with LuxeUI in 5 minutes. This guide walks you through creating your first beautiful SwiftUI interface.</p>
+
+                    <h2 id="step-1">Step 1: Import & Apply Theme</h2>
+                    <p>Start by importing LuxeUI and applying a theme at your app's root. The theme automatically flows down to all LuxeUI components.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">MyApp.swift</span>
+                        </div>
+                        <pre><code><span class="code-keyword">import</span> SwiftUI
+<span class="code-keyword">import</span> LuxeUI
+
+<span class="code-keyword">@main</span>
+<span class="code-keyword">struct</span> <span class="code-type">MyApp</span>: <span class="code-type">App</span> {
+    <span class="code-keyword">var</span> body: <span class="code-keyword">some</span> <span class="code-type">Scene</span> {
+        <span class="code-type">WindowGroup</span> {
+            <span class="code-type">ContentView</span>()
+                .luxeTheme(.midnight)  <span class="code-comment">// Apply a preset theme</span>
+        }
+    }
+}</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <div class="callout callout-info">
+                        <div class="callout-icon">💡</div>
+                        <div class="callout-content">
+                            <strong>Available Themes</strong>
+                            <p><code>.default</code>, <code>.midnight</code>, <code>.sunset</code>, <code>.ocean</code>, <code>.forest</code>, <code>.neon</code>, <code>.monochrome</code>, <code>.light</code></p>
+                        </div>
+                    </div>
+
+                    <h2 id="step-2">Step 2: Create Your First Card</h2>
+                    <p>LuxeCard is a versatile container with glassmorphic styling, hover effects, and haptic feedback.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">ContentView.swift</span>
+                        </div>
+                        <pre><code><span class="code-keyword">import</span> SwiftUI
+<span class="code-keyword">import</span> LuxeUI
+
+<span class="code-keyword">struct</span> <span class="code-type">ContentView</span>: <span class="code-type">View</span> {
+    <span class="code-keyword">var</span> body: <span class="code-keyword">some</span> <span class="code-type">View</span> {
+        <span class="code-type">LuxeCard</span> {
+            <span class="code-type">VStack</span>(spacing: <span class="code-number">12</span>) {
+                <span class="code-type">Image</span>(systemName: <span class="code-string">"star.fill"</span>)
+                    .font(.system(size: <span class="code-number">40</span>))
+                    .foregroundColor(.yellow)
+                <span class="code-type">Text</span>(<span class="code-string">"Premium Feature"</span>)
+                    .font(.headline)
+                <span class="code-type">Text</span>(<span class="code-string">"Hover to see the effect!"</span>)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .padding()
+        }
+        .frame(width: <span class="code-number">280</span>, height: <span class="code-number">180</span>)
+    }
+}</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="step-3">Step 3: Add Refractive Glass ✨</h2>
+                    <p>The signature 2026 effect—real lens distortion that warps the background like looking through water.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Swift</span>
+                        </div>
+                        <pre><code><span class="code-comment">// Option 1: Use the view modifier</span>
+<span class="code-type">VStack</span> {
+    <span class="code-type">Text</span>(<span class="code-string">"Premium Content"</span>)
+        .font(.title)
+}
+.padding(<span class="code-number">32</span>)
+.refractiveGlass(intensity: <span class="code-number">0.2</span>)
+
+<span class="code-comment">// Option 2: Use the card component</span>
+<span class="code-type">RefractiveGlassCard</span>(
+    distortionIntensity: <span class="code-number">0.25</span>,
+    chromaticAberration: <span class="code-keyword">true</span>
+) {
+    <span class="code-type">VStack</span>(spacing: <span class="code-number">16</span>) {
+        <span class="code-type">Image</span>(systemName: <span class="code-string">"wand.and.stars"</span>)
+            .font(.system(size: <span class="code-number">50</span>))
+        <span class="code-type">Text</span>(<span class="code-string">"Liquid Glass"</span>)
+            .font(.title2.bold())
+    }
+}
+.frame(width: <span class="code-number">300</span>, height: <span class="code-number">220</span>)</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="step-4">Step 4: Add an Animated Background</h2>
+                    <p>Create depth and atmosphere with animated mesh gradients.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Swift</span>
+                        </div>
+                        <pre><code><span class="code-type">ZStack</span> {
+    <span class="code-comment">// Animated gradient background</span>
+    <span class="code-type">MeshGradientBackground</span>(colors: [
+        <span class="code-type">Color</span>(red: <span class="code-number">0.4</span>, green: <span class="code-number">0.2</span>, blue: <span class="code-number">0.8</span>),
+        <span class="code-type">Color</span>(red: <span class="code-number">0.8</span>, green: <span class="code-number">0.2</span>, blue: <span class="code-number">0.6</span>),
+        <span class="code-type">Color</span>(red: <span class="code-number">0.2</span>, green: <span class="code-number">0.6</span>, blue: <span class="code-number">0.9</span>)
+    ])
+    
+    <span class="code-comment">// Your content on top</span>
+    <span class="code-type">RefractiveGlassCard</span> {
+        <span class="code-type">Text</span>(<span class="code-string">"Hello, LuxeUI!"</span>)
+    }
+}</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="step-5">Step 5: Interactive Components</h2>
+                    <p>Add buttons, progress indicators, and sliders with premium styling.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Swift</span>
+                        </div>
+                        <pre><code><span class="code-keyword">struct</span> <span class="code-type">InteractiveExample</span>: <span class="code-type">View</span> {
+    <span class="code-keyword">@State</span> <span class="code-keyword">private var</span> progress: <span class="code-type">Double</span> = <span class="code-number">0.65</span>
+    <span class="code-keyword">@State</span> <span class="code-keyword">private var</span> priceRange: [<span class="code-type">Double</span>] = [<span class="code-number">20</span>, <span class="code-number">80</span>]
+    
+    <span class="code-keyword">var</span> body: <span class="code-keyword">some</span> <span class="code-type">View</span> {
+        <span class="code-type">VStack</span>(spacing: <span class="code-number">32</span>) {
+            <span class="code-comment">// Premium button with haptic feedback</span>
+            <span class="code-type">LuxeButton</span>(<span class="code-string">"Get Started"</span>, style: .primary) {
+                <span class="code-keyword">print</span>(<span class="code-string">"Tapped!"</span>)
+            }
+            
+            <span class="code-comment">// Animated progress ring</span>
+            <span class="code-type">CircularProgressBar</span>(
+                progress: progress,
+                showPercentage: <span class="code-keyword">true</span>,
+                gradient: <span class="code-keyword">true</span>
+            )
+            .frame(width: <span class="code-number">120</span>, height: <span class="code-number">120</span>)
+            
+            <span class="code-comment">// Multi-thumb range slider</span>
+            <span class="code-type">MultiThumbSlider</span>(
+                values: $priceRange,
+                range: <span class="code-number">0</span>...<span class="code-number">100</span>,
+                showLabels: <span class="code-keyword">true</span>
+            )
+            .frame(width: <span class="code-number">300</span>)
+        }
+    }
+}</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="complete-example">Complete Example</h2>
+                    <p>Here's everything together in a complete, beautiful interface:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">ContentView.swift</span>
+                        </div>
+                        <pre><code><span class="code-keyword">import</span> SwiftUI
+<span class="code-keyword">import</span> LuxeUI
+
+<span class="code-keyword">struct</span> <span class="code-type">ContentView</span>: <span class="code-type">View</span> {
+    <span class="code-keyword">@State</span> <span class="code-keyword">private var</span> progress: <span class="code-type">Double</span> = <span class="code-number">0.75</span>
+    
+    <span class="code-keyword">var</span> body: <span class="code-keyword">some</span> <span class="code-type">View</span> {
+        <span class="code-type">ZStack</span> {
+            <span class="code-comment">// Animated background</span>
+            <span class="code-type">MeshGradientBackground</span>()
+            
+            <span class="code-type">VStack</span>(spacing: <span class="code-number">32</span>) {
+                <span class="code-comment">// Hero card with refractive glass</span>
+                <span class="code-type">RefractiveGlassCard</span>(configuration: .liquid) {
+                    <span class="code-type">VStack</span>(spacing: <span class="code-number">16</span>) {
+                        <span class="code-type">CircularProgressBar</span>(
+                            progress: progress,
+                            showPercentage: <span class="code-keyword">true</span>
+                        )
+                        .frame(width: <span class="code-number">100</span>, height: <span class="code-number">100</span>)
+                        
+                        <span class="code-type">Text</span>(<span class="code-string">"Project Progress"</span>)
+                            .font(.headline)
+                    }
+                    .padding()
+                }
+                .frame(width: <span class="code-number">280</span>, height: <span class="code-number">220</span>)
+                
+                <span class="code-comment">// Action button</span>
+                <span class="code-type">LuxeButton</span>(<span class="code-string">"Continue"</span>, style: .primary) {
+                    <span class="code-keyword">withAnimation</span> {
+                        progress = <span class="code-type">Double</span>.random(in: <span class="code-number">0.5</span>...<span class="code-number">1.0</span>)
+                    }
+                }
+            }
+        }
+        .luxeTheme(.midnight)
+    }
+}</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <div class="callout callout-success">
+                        <div class="callout-icon">🎉</div>
+                        <div class="callout-content">
+                            <strong>You're ready!</strong>
+                            <p>You now have a beautiful, animated interface with premium effects. Explore the <a href="../components/refractive-glass.html">Components</a> section to discover all available UI elements.</p>
+                        </div>
+                    </div>
+
+                    <h2>Next Steps</h2>
+                    <div class="next-steps-grid">
+                        <a href="../themes/overview.html" class="next-step-card">
+                            <span class="next-step-icon">🎨</span>
+                            <span class="next-step-title">Theme System</span>
+                            <span class="next-step-desc">Learn how to customize colors, typography, and spacing</span>
+                        </a>
+                        <a href="../components/refractive-glass.html" class="next-step-card">
+                            <span class="next-step-icon">🔮</span>
+                            <span class="next-step-title">Refractive Glass</span>
+                            <span class="next-step-desc">Master the signature 2026 liquid glass effect</span>
+                        </a>
+                        <a href="../interactions/smart-spring.html" class="next-step-card">
+                            <span class="next-step-icon">🧲</span>
+                            <span class="next-step-title">Smart Interactions</span>
+                            <span class="next-step-desc">Add velocity-aware physics to your UI</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Page Navigation -->
+                <nav class="page-nav">
+                    <a href="installation.html" class="page-nav-link prev">
+                        <span class="page-nav-label">Previous</span>
+                        <span class="page-nav-title">Installation</span>
+                    </a>
+                    <a href="../themes/overview.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Theme Overview</span>
+                    </a>
+                </nav>
+            </div>
+        </main>
+    </div>
+
+    <script src="../docs-script.js"></script>
+    <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+</body>
+</html>

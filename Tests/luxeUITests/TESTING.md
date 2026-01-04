@@ -16,6 +16,9 @@ swift test --filter "ThemeTests"
 
 # Run smoke tests only
 swift test --filter "SmokeTests"
+
+# Run UI tests only
+swift test --filter "UITests"
 ```
 
 ## Test Summary
@@ -24,7 +27,8 @@ swift test --filter "SmokeTests"
 |----------|--------|-------|-------------|
 | **Unit Tests** | 19 | 60 | Detailed component behavior tests |
 | **Smoke Tests** | 15 | 43 | Quick sanity checks for all features |
-| **Total** | 34 | 103 | Full test coverage |
+| **UI Tests** | 13 | 56 | SwiftUI view rendering & accessibility tests |
+| **Total** | 47 | 159 | Full test coverage |
 
 ## Test Structure
 
@@ -32,7 +36,8 @@ swift test --filter "SmokeTests"
 Tests/
 └── luxeUITests/
     ├── luxeUITests.swift    # Unit tests (60 tests)
-    └── SmokeTests.swift     # Smoke tests (43 tests)
+    ├── SmokeTests.swift     # Smoke tests (43 tests)
+    └── UITests.swift        # UI tests (56 tests)
 ```
 
 
@@ -174,7 +179,30 @@ When adding new features:
 
 1. **Add unit tests** in `luxeUITests.swift` for detailed behavior
 2. **Add smoke tests** in `SmokeTests.swift` for quick validation
-3. **Run full suite** before submitting PR: `swift test`
-4. **Ensure CI passes** - Check GitHub Actions status
+3. **Add UI tests** in `UITests.swift` for view rendering verification
+4. **Run full suite** before submitting PR: `swift test`
+5. **Ensure CI passes** - Check GitHub Actions status
+
+---
+
+## Complete Test List
+
+### UI Tests (13 Suites, 56 Tests)
+
+| Suite | Tests |
+|-------|-------|
+| **LuxeCard UI Tests** | LuxeCard renders with default configuration, LuxeCard renders with custom parameters, LuxeCard renders with all preset configurations, LuxeCard supports callback modifiers, LuxeCard renders with complex content |
+| **GlassmorphismContainer UI Tests** | GlassmorphismContainer renders with default configuration, GlassmorphismContainer renders with custom parameters, GlassmorphismContainer renders with all presets, GlassmorphismContainer renders nested content |
+| **RefractiveGlass UI Tests** | RefractiveGlass renders with all presets, RefractiveGlass renders with custom configuration, RefractiveGlass renders without chromatic aberration, RefractiveGlass modifier applies to view |
+| **CircularProgressBar UI Tests** | CircularProgressBar renders at 0%, CircularProgressBar renders at 50%, CircularProgressBar renders at 100%, CircularProgressBar renders with all size presets, CircularProgressBar renders with all style presets, CircularProgressBar renders with custom colors, CircularProgressBar renders with glow effect, CircularProgressBar renders without percentage, CircularProgressBar static size helpers |
+| **MultiThumbSlider UI Tests** | MultiThumbSlider renders with two thumbs, MultiThumbSlider renders with custom range, MultiThumbSlider renders with all presets, MultiThumbSlider renders without labels, MultiThumbSlider renders with custom colors, MultiThumbSlider supports callbacks |
+| **SmartSpring UI Tests** | SmartSprings modifier applies to view, SmartSprings renders with all presets, SmartSprings with rotation enabled |
+| **MagneticPull UI Tests** | MagneticPull modifier applies to view, MagneticPull renders with all presets |
+| **PredictiveLayout UI Tests** | LuxeAdaptiveContainer renders with high probability, LuxeAdaptiveContainer renders with low probability, LuxeAdaptiveContainer renders with all presets |
+| **Premium Components UI Tests** | LuxeButton renders with title, LuxeButton renders with different styles, LuxeButton renders with all sizes, LuxeBadge renders with all presets, LuxeBadge renders with custom colors, FloatingOrb renders with all presets, FloatingOrb renders with custom size, MeshGradientBackground renders, Animated components initialize correctly |
+| **Theme Integration UI Tests** | Components render with default theme, Components render with all theme presets, Custom theme applies to components, Theme flows through component hierarchy, Nested components inherit theme |
+| **Complex Layout UI Tests** | Dashboard layout renders correctly, Profile card layout renders correctly, Settings page layout renders correctly, Onboarding screen layout renders correctly |
+| **Accessibility UI Tests** | Components are accessible |
+| **Animation UI Tests** | Static animation preset disables animation |
 
 
