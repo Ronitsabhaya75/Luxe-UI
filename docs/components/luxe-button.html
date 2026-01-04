@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeButton - LuxeUI Documentation</title>
+    <link rel="stylesheet" href="../docs-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="top-nav-container">
+            <a href="../index.html" class="nav-logo">
+                <span class="logo-icon">✨</span>
+                <span class="logo-text">LuxeUI</span>
+                <span class="logo-badge">Docs</span>
+            </a>
+            <div class="nav-search">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" placeholder="Search documentation..." class="search-input">
+                <span class="search-shortcut">⌘K</span>
+            </div>
+            <div class="nav-links">
+                <a href="https://github.com/Ronitsabhaya75/Luxe-UI" class="nav-link" target="_blank">
+                    <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Getting Started</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="../getting-started/welcome.html" class="sidebar-link">Welcome</a></li>
+                        <li><a href="../getting-started/installation.html" class="sidebar-link">Installation</a></li>
+                        <li><a href="../getting-started/quickstart.html" class="sidebar-link">Quickstart</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Theme System</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="../themes/overview.html" class="sidebar-link">Overview</a></li>
+                        <li><a href="../themes/presets.html" class="sidebar-link">Preset Themes</a></li>
+                        <li><a href="../themes/customization.html" class="sidebar-link">Customization</a></li>
+                        <li><a href="../themes/design-tokens.html" class="sidebar-link">Design Tokens</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Components</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="refractive-glass.html" class="sidebar-link">Refractive Glass</a></li>
+                        <li><a href="luxe-card.html" class="sidebar-link">LuxeCard</a></li>
+                        <li><a href="luxe-button.html" class="sidebar-link active">LuxeButton</a></li>
+                        <li><a href="glassmorphism.html" class="sidebar-link">Glassmorphism</a></li>
+                        <li><a href="circular-progress.html" class="sidebar-link">Circular Progress</a></li>
+                        <li><a href="multi-thumb-slider.html" class="sidebar-link">Multi-Thumb Slider</a></li>
+                        <li><a href="mesh-gradient.html" class="sidebar-link">Mesh Gradient</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-heading">Interactions</h3>
+                    <ul class="sidebar-list">
+                        <li><a href="../interactions/smart-spring.html" class="sidebar-link">Smart Spring</a></li>
+                        <li><a href="../interactions/predictive-layouts.html" class="sidebar-link">Predictive Layouts</a></li>
+                        <li><a href="../interactions/haptics.html" class="sidebar-link">Haptic Feedback</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="docs-content">
+            <div class="content-container">
+                <div class="breadcrumb">
+                    <a href="refractive-glass.html">Components</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span>LuxeButton</span>
+                </div>
+
+                <article class="docs-article">
+                    <h1>LuxeButton</h1>
+                    <p class="lead">A premium button component with gradient backgrounds, press animations, and haptic feedback. Automatically styled based on your active theme.</p>
+
+                    <h2 id="features">Features</h2>
+                    <ul class="feature-list">
+                        <li><strong>Multiple Styles</strong> - Primary, secondary, glass, or fully custom styling</li>
+                        <li><strong>Press Animation</strong> - Smooth scale-down effect when pressed</li>
+                        <li><strong>Gradient Background</strong> - Beautiful color transitions using theme colors</li>
+                        <li><strong>Haptic Feedback</strong> - Configurable tactile response on tap</li>
+                        <li><strong>Theme Integration</strong> - Automatically uses colors from active theme</li>
+                        <li><strong>Size Presets</strong> - Small, medium, large, and extra-large variants</li>
+                    </ul>
+
+                    <h2 id="basic-usage">Basic Usage</h2>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Swift</span>
+                        </div>
+                        <pre><code><span class="code-keyword">import</span> LuxeUI
+
+<span class="code-type">LuxeButton</span>(<span class="code-string">"Get Started"</span>, style: .primary) {
+    <span class="code-keyword">print</span>(<span class="code-string">"Button tapped!"</span>)
+}</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="button-styles">Button Styles</h2>
+                    <p>LuxeButton supports four visual styles:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Swift</span>
+                        </div>
+                        <pre><code><span class="code-comment">// Primary style - Gradient using theme's primary and accent colors</span>
+<span class="code-type">LuxeButton</span>(<span class="code-string">"Primary"</span>, style: .primary) {
+    startAction()
+}
+
+<span class="code-comment">// Secondary style - Uses theme's secondary color</span>
+<span class="code-type">LuxeButton</span>(<span class="code-string">"Secondary"</span>, style: .secondary) {
+    secondaryAction()
+}
+
+<span class="code-comment">// Glass style - Frosted glass effect</span>
+<span class="code-type">LuxeButton</span>(<span class="code-string">"Learn More"</span>, style: .glass) {
+    showDetails()
+}
+
+<span class="code-comment">// Custom style - Define your own colors</span>
+<span class="code-type">LuxeButton</span>(<span class="code-string">"Delete"</span>, style: .custom(
+    background: [.red, .orange],
+    foreground: .white,
+    shadowColor: .red
+)) {
+    deleteItem()
+}</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="size-variants">Size Variants</h2>
+                    <p>Use configuration presets for consistent sizing:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Swift</span>
+                        </div>
+                        <pre><code><span class="code-comment">// Small button - Compact for toolbars</span>
+<span class="code-type">LuxeButton</span>(<span class="code-string">"Cancel"</span>, configuration: .small) { }
+
+<span class="code-comment">// Medium button - Default size</span>
+<span class="code-type">LuxeButton</span>(<span class="code-string">"Continue"</span>, configuration: .medium) { }
+
+<span class="code-comment">// Large button - Prominent CTAs</span>
+<span class="code-type">LuxeButton</span>(<span class="code-string">"Get Started"</span>, configuration: .large) { }
+
+<span class="code-comment">// Extra large button - Hero buttons</span>
+<span class="code-type">LuxeButton</span>(<span class="code-string">"Start Now"</span>, configuration: .extraLarge) { }</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="convenience-methods">Convenience Methods</h2>
+                    <p>Quick size constructors:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Swift</span>
+                        </div>
+                        <pre><code><span class="code-type">LuxeButton</span>.small(<span class="code-string">"Save"</span>, style: .primary) { }
+<span class="code-type">LuxeButton</span>.medium(<span class="code-string">"Continue"</span>, style: .primary) { }
+<span class="code-type">LuxeButton</span>.large(<span class="code-string">"Get Started"</span>, style: .primary) { }</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="customization">Customization Methods</h2>
+                    <p>Chain customization methods to override specific properties:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Swift</span>
+                        </div>
+                        <pre><code><span class="code-type">LuxeButton</span>(<span class="code-string">"Custom"</span>, style: .primary) {
+    handleTap()
+}
+.gradient([.blue, .cyan])
+.foregroundColor(.yellow)
+.shadowColor(.blue)
+.cornerRadius(<span class="code-number">20</span>)
+.fontSize(<span class="code-number">18</span>)</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="configuration">LuxeButtonConfiguration</h2>
+                    <p>Create custom button configurations:</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Swift</span>
+                        </div>
+                        <pre><code><span class="code-keyword">let</span> customConfig = <span class="code-type">LuxeButtonConfiguration</span>(
+    cornerRadius: <span class="code-number">16</span>,
+    fontSize: <span class="code-number">18</span>,
+    fontWeight: .bold,
+    paddingHorizontal: <span class="code-number">32</span>,
+    paddingVertical: <span class="code-number">16</span>,
+    shadowRadius: <span class="code-number">15</span>,
+    pressScale: <span class="code-number">0.95</span>,
+    animationResponse: <span class="code-number">0.2</span>,
+    animationDamping: <span class="code-number">0.7</span>,
+    enableHaptics: <span class="code-keyword">true</span>,
+    hapticIntensity: .medium
+)
+
+<span class="code-type">LuxeButton</span>(<span class="code-string">"Custom Button"</span>, configuration: customConfig) {
+    <span class="code-keyword">print</span>(<span class="code-string">"Tapped!"</span>)
+}</code></pre>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+
+                    <h2 id="size-presets">Size Presets</h2>
+                    <div class="preset-grid">
+                        <div class="preset-card">
+                            <h4>small</h4>
+                            <p>Compact button for toolbars and dense layouts</p>
+                            <code>fontSize: 14, padding: 16x8</code>
+                        </div>
+                        <div class="preset-card">
+                            <h4>medium</h4>
+                            <p>Standard size, suitable for most use cases (default)</p>
+                            <code>fontSize: 16, padding: 24x12</code>
+                        </div>
+                        <div class="preset-card">
+                            <h4>large</h4>
+                            <p>Prominent button for primary actions</p>
+                            <code>fontSize: 18, padding: 32x16</code>
+                        </div>
+                        <div class="preset-card">
+                            <h4>extraLarge</h4>
+                            <p>Hero-sized button for landing pages</p>
+                            <code>fontSize: 20, padding: 40x20</code>
+                        </div>
+                    </div>
+
+                    <h2 id="api-reference">API Reference</h2>
+                    <h3>LuxeButtonConfiguration</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>cornerRadius</code></td>
+                                <td>CGFloat</td>
+                                <td>12</td>
+                                <td>The corner radius of the button</td>
+                            </tr>
+                            <tr>
+                                <td><code>fontSize</code></td>
+                                <td>CGFloat</td>
+                                <td>16</td>
+                                <td>The font size of the button text</td>
+                            </tr>
+                            <tr>
+                                <td><code>fontWeight</code></td>
+                                <td>Font.Weight</td>
+                                <td>.semibold</td>
+                                <td>The font weight of the button text</td>
+                            </tr>
+                            <tr>
+                                <td><code>paddingHorizontal</code></td>
+                                <td>CGFloat</td>
+                                <td>24</td>
+                                <td>The horizontal padding inside the button</td>
+                            </tr>
+                            <tr>
+                                <td><code>paddingVertical</code></td>
+                                <td>CGFloat</td>
+                                <td>12</td>
+                                <td>The vertical padding inside the button</td>
+                            </tr>
+                            <tr>
+                                <td><code>shadowRadius</code></td>
+                                <td>CGFloat</td>
+                                <td>10</td>
+                                <td>The blur radius of the button's shadow</td>
+                            </tr>
+                            <tr>
+                                <td><code>pressScale</code></td>
+                                <td>CGFloat</td>
+                                <td>0.95</td>
+                                <td>The scale factor when the button is pressed</td>
+                            </tr>
+                            <tr>
+                                <td><code>animationResponse</code></td>
+                                <td>Double</td>
+                                <td>0.2</td>
+                                <td>The spring animation response time</td>
+                            </tr>
+                            <tr>
+                                <td><code>animationDamping</code></td>
+                                <td>Double</td>
+                                <td>0.7</td>
+                                <td>The spring animation damping fraction</td>
+                            </tr>
+                            <tr>
+                                <td><code>enableHaptics</code></td>
+                                <td>Bool</td>
+                                <td>true</td>
+                                <td>Whether to trigger haptic feedback on tap</td>
+                            </tr>
+                            <tr>
+                                <td><code>hapticIntensity</code></td>
+                                <td>TactileFeedback.Intensity</td>
+                                <td>.medium</td>
+                                <td>The intensity of haptic feedback</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>LuxeButtonStyle</h3>
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Style</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>primary</code></td>
+                                <td>Gradient background using theme's primary and accent colors. Best for main CTAs.</td>
+                            </tr>
+                            <tr>
+                                <td><code>secondary</code></td>
+                                <td>Uses theme's secondary color. For secondary actions.</td>
+                            </tr>
+                            <tr>
+                                <td><code>glass</code></td>
+                                <td>Frosted glass effect with translucent background. Elegant, subtle appearance.</td>
+                            </tr>
+                            <tr>
+                                <td><code>custom</code></td>
+                                <td>Define your own gradient colors, foreground, and shadow color.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="callout callout-tip">
+                        <div class="callout-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                            Best Practice
+                        </div>
+                        <p>Use <code>.primary</code> for main call-to-action buttons, <code>.secondary</code> for supporting actions, and <code>.glass</code> for overlay contexts where you want the button to blend with the background.</p>
+                    </div>
+                </article>
+
+                <nav class="page-nav">
+                    <a href="luxe-card.html" class="page-nav-link prev">
+                        <span class="page-nav-label">Previous</span>
+                        <span class="page-nav-title">LuxeCard</span>
+                    </a>
+                    <a href="glassmorphism.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Glassmorphism</span>
+                    </a>
+                </nav>
+            </div>
+        </main>
+    </div>
+
+    <script src="../docs-script.js"></script>
+    <script defer src="https://va.vercel-scripts.com/v1/script.js"></script>
+</body>
+</html>
