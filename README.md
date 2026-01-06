@@ -1,6 +1,12 @@
 # LuxeUI ✨
 
 <p align="center">
+  <a href="https://swiftpackageindex.com/Ronitsabhaya75/Luxe-UI">
+    <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FRonitsabhaya75%2FLuxe-UI%2Fbadge%3Ftype%3Dswift-versions" alt="Swift Versions">
+  </a>
+  <a href="https://swiftpackageindex.com/Ronitsabhaya75/Luxe-UI">
+    <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FRonitsabhaya75%2FLuxe-UI%2Fbadge%3Ftype%3Dplatforms" alt="Platforms">
+  </a>
   <img src="https://img.shields.io/badge/Platform-iOS%2015%2B%20%7C%20macOS%2012%2B-blue.svg" alt="Platform">
   <img src="https://img.shields.io/badge/Swift-5.9%2B-orange.svg" alt="Swift">
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">

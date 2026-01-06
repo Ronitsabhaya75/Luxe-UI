@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "LuxeUI",
     platforms: [
-        .iOS(.v15),   // Enables SwiftUI features
+        .iOS(.v15),
         .macOS(.v12)
     ],
     products: [
