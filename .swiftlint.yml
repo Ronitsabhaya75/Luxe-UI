@@ -157,26 +157,26 @@ custom_rules:
     regex: "import UIKit"
     message: "Use SwiftUI instead of UIKit for this project"
     severity: warning
-    excluded: ".*Tests\\.swift"
+    excluded: '.*Tests\.swift'
   
   # Ensure proper documentation
   missing_docs:
     name: "Missing Documentation"
-    regex: "^\\s*(public|open)\\s+(class|struct|enum|protocol|func|var|let)\\s+(?!.*\\/\\/\\/)"
+    regex: '^\s*(public|open)\s+(class|struct|enum|protocol|func|var|let)\s+(?!.*///)'
     message: "Public declarations should have documentation comments"
     severity: warning
-    excluded: ".*Tests\\.swift"
+    excluded: '.*Tests\.swift'
 
 # File header template
 file_header:
   required_pattern: |
-                    \/\/
-                    \/\/  .*?\.swift
-                    \/\/  LuxeUI
-                    \/\/
+                    //
+                    //  .*\.swift
+                    //  LuxeUI
+                    //
   forbidden_pattern: |
-                     \/\/
-                     \/\/  Copyright
+                     //
+                     //  Copyright
 
 # Reporter type
 reporter: "xcode"
