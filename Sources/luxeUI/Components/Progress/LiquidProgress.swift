@@ -12,6 +12,7 @@ public struct LiquidProgressConfiguration: Sendable {
     public var cornerRadius: CGFloat
     public var backgroundColor: Color
     public var backgroundOpacity: Double
+    public var enableGPU: Bool
     
     public init(
         height: CGFloat = 20,
@@ -21,7 +22,8 @@ public struct LiquidProgressConfiguration: Sendable {
         speed: Double = 3.0,
         cornerRadius: CGFloat = 10,
         backgroundColor: Color = .gray,
-        backgroundOpacity: Double = 0.2
+        backgroundOpacity: Double = 0.2,
+        enableGPU: Bool = true
     ) {
         self.height = height
         self.colors = colors
@@ -31,6 +33,7 @@ public struct LiquidProgressConfiguration: Sendable {
         self.cornerRadius = cornerRadius
         self.backgroundColor = backgroundColor
         self.backgroundOpacity = backgroundOpacity
+        self.enableGPU = enableGPU
     }
     
     public static let `default` = LiquidProgressConfiguration()
@@ -72,22 +75,24 @@ public struct LiquidProgress: View {
                     .fill(configuration.backgroundColor.opacity(configuration.backgroundOpacity))
                 
                 // Liquid Wave Fill
-                WaveShape(
-                    progress: progress,
-                    amplitude: configuration.amplitude,
-                    frequency: configuration.frequency,
-                    phase: phase
-                )
-                .fill(
-                    LinearGradient(
-                        colors: configuration.colors,
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-                .mask(
-                    RoundedRectangle(cornerRadius: configuration.cornerRadius)
-                )
+                if configuration.enableGPU {
+                    if #available(iOS 17.0, macOS 14.0, *) {
+                        Rectangle()
+                            .fill(LinearGradient(colors: configuration.colors, startPoint: .leading, endPoint: .trailing))
+                            .gpuLiquidWave(
+                                size: geometry.size,
+                                progress: progress,
+                                amplitude: configuration.amplitude,
+                                frequency: configuration.frequency,
+                                phase: phase
+                            )
+                            .mask(RoundedRectangle(cornerRadius: configuration.cornerRadius))
+                    } else {
+                        cpuWaveFill
+                    }
+                } else {
+                    cpuWaveFill
+                }
             }
         }
         .frame(height: configuration.height)
@@ -96,6 +101,25 @@ public struct LiquidProgress: View {
                 phase = .pi * 2
             }
         }
+    }
+    
+    private var cpuWaveFill: some View {
+        WaveShape(
+            progress: progress,
+            amplitude: configuration.amplitude,
+            frequency: configuration.frequency,
+            phase: phase
+        )
+        .fill(
+            LinearGradient(
+                colors: configuration.colors,
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        )
+        .mask(
+            RoundedRectangle(cornerRadius: configuration.cornerRadius)
+        )
     }
 }
 
