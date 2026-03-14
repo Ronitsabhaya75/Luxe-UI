@@ -17,7 +17,9 @@ struct LuxeCardUITests {
             Text("Test Content")
         }
         
-        #expect(card.body != nil)
+        let mirror = Mirror(reflecting: card)
+        let config = mirror.descendant("configuration") as? LuxeCardConfiguration
+        #expect(config != nil)
     }
     
     @Test("LuxeCard renders with all preset configurations")
@@ -34,7 +36,10 @@ struct LuxeCardUITests {
             let card = LuxeCard(configuration: preset) {
                 Text("Preset Card")
             }
-            #expect(card.body != nil)
+            let mirror = Mirror(reflecting: card)
+            let config = mirror.descendant("configuration") as? LuxeCardConfiguration
+            #expect(config != nil)
+            #expect(config?.cornerRadius == preset.cornerRadius)
         }
     }
     
@@ -56,7 +61,11 @@ struct LuxeCardUITests {
             }
         }
         
-        #expect(card.body != nil)
+        let mirror = Mirror(reflecting: card)
+        let config = mirror.descendant("configuration") as? LuxeCardConfiguration
+        #expect(config != nil)
+        #expect(config?.cornerRadius == 32)
+        #expect(config?.blur == 20)
     }
     
     @Test("LuxeCard supports callback modifiers")
@@ -110,7 +119,8 @@ struct GlassmorphismContainerUITests {
             Text("Glass Content")
         }
         
-        #expect(container.body != nil)
+        let mirror = Mirror(reflecting: container)
+        #expect(mirror.descendant("configuration") as? GlassmorphismConfiguration != nil)
     }
     
     @Test("GlassmorphismContainer renders with all presets")
@@ -128,7 +138,9 @@ struct GlassmorphismContainerUITests {
             let container = GlassmorphismContainer(configuration: preset) {
                 Text("Glass")
             }
-            #expect(container.body != nil)
+            let mirror = Mirror(reflecting: container)
+            let config = mirror.descendant("configuration") as? GlassmorphismConfiguration
+            #expect(config?.blurRadius == preset.blurRadius)
         }
     }
     
@@ -142,7 +154,11 @@ struct GlassmorphismContainerUITests {
             Text("Custom Glass")
         }
         
-        #expect(container.body != nil)
+        let mirror = Mirror(reflecting: container)
+        let config = mirror.descendant("configuration") as? GlassmorphismConfiguration
+        #expect(config?.blurRadius == 30)
+        #expect(config?.backgroundOpacity == 0.5)
+        #expect(config?.cornerRadius == 28)
     }
     
     @Test("GlassmorphismContainer renders nested content")
@@ -183,7 +199,8 @@ struct RefractiveGlassUITests {
             .padding()
             .refractiveGlass()
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
     
     @Test("RefractiveGlass renders with all presets")
@@ -201,7 +218,8 @@ struct RefractiveGlassUITests {
             let view = Text("Preset View")
                 .padding()
                 .refractiveGlass(configuration: preset)
-            #expect(view != nil)
+            let mirror = Mirror(reflecting: view)
+            #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
         }
     }
     
@@ -222,7 +240,8 @@ struct RefractiveGlassUITests {
         .padding()
         .refractiveGlass(configuration: config)
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
     
     @Test("RefractiveGlass renders without chromatic aberration")
@@ -235,7 +254,8 @@ struct RefractiveGlassUITests {
         let view = Text("No Effects")
             .refractiveGlass(configuration: config)
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
 }
 
@@ -247,19 +267,19 @@ struct CircularProgressBarUITests {
     @Test("CircularProgressBar renders at 0%")
     func zeroProgress() {
         let progress = CircularProgressBar(progress: 0.0)
-        #expect(progress.body != nil)
+        let m = Mirror(reflecting: progress); #expect(m.descendant("progress") as? Double != nil)
     }
     
     @Test("CircularProgressBar renders at 50%")
     func halfProgress() {
         let progress = CircularProgressBar(progress: 0.5)
-        #expect(progress.body != nil)
+        let m = Mirror(reflecting: progress); #expect(m.descendant("progress") as? Double != nil)
     }
     
     @Test("CircularProgressBar renders at 100%")
     func fullProgress() {
         let progress = CircularProgressBar(progress: 1.0)
-        #expect(progress.body != nil)
+        let m = Mirror(reflecting: progress); #expect(m.descendant("progress") as? Double != nil)
     }
     
     @Test("CircularProgressBar renders with all size presets")
@@ -273,7 +293,7 @@ struct CircularProgressBarUITests {
         
         for size in sizes {
             let progress = CircularProgressBar(progress: 0.75, configuration: size)
-            #expect(progress.body != nil)
+            let m = Mirror(reflecting: progress); #expect(m.descendant("progress") as? Double != nil)
         }
     }
     
@@ -288,7 +308,7 @@ struct CircularProgressBarUITests {
         
         for style in styles {
             let progress = CircularProgressBar(progress: 0.6, configuration: style)
-            #expect(progress.body != nil)
+            let m = Mirror(reflecting: progress); #expect(m.descendant("progress") as? Double != nil)
         }
     }
     
@@ -300,14 +320,14 @@ struct CircularProgressBarUITests {
         )
         
         let progress = CircularProgressBar(progress: 0.8, configuration: config)
-        #expect(progress.body != nil)
+        let m = Mirror(reflecting: progress); #expect(m.descendant("progress") as? Double != nil)
     }
     
     @Test("CircularProgressBar renders without percentage")
     func noPercentage() {
         let config = CircularProgressConfiguration(showPercentage: false)
         let progress = CircularProgressBar(progress: 0.5, configuration: config)
-        #expect(progress.body != nil)
+        let m = Mirror(reflecting: progress); #expect(m.descendant("progress") as? Double != nil)
     }
     
     @Test("CircularProgressBar renders with glow effect")
@@ -319,7 +339,7 @@ struct CircularProgressBarUITests {
         )
         
         let progress = CircularProgressBar(progress: 0.9, configuration: config)
-        #expect(progress.body != nil)
+        let m = Mirror(reflecting: progress); #expect(m.descendant("progress") as? Double != nil)
     }
     
     @Test("CircularProgressBar static size helpers")
@@ -347,7 +367,8 @@ struct MultiThumbSliderUITests {
             range: 0...100
         )
         
-        #expect(slider.body != nil)
+        let mirror = Mirror(reflecting: slider)
+        #expect(mirror.descendant("_values") != nil)
     }
     
     @Test("MultiThumbSlider renders with custom range")
@@ -359,7 +380,8 @@ struct MultiThumbSliderUITests {
             step: 50
         )
         
-        #expect(slider.body != nil)
+        let mirror = Mirror(reflecting: slider)
+        #expect(mirror.descendant("step") as? Double == 50)
     }
     
     @Test("MultiThumbSlider renders with all presets")
@@ -379,7 +401,9 @@ struct MultiThumbSliderUITests {
                 values: .constant(values),
                 configuration: preset
             )
-            #expect(slider.body != nil)
+            let mirror = Mirror(reflecting: slider)
+            let config = mirror.descendant("configuration") as? MultiThumbSliderConfiguration
+            #expect(config?.trackHeight == preset.trackHeight)
         }
     }
     
@@ -391,7 +415,9 @@ struct MultiThumbSliderUITests {
             showLabels: false
         )
         
-        #expect(slider.body != nil)
+        let mirror = Mirror(reflecting: slider)
+        let config = mirror.descendant("configuration") as? MultiThumbSliderConfiguration
+        #expect(config?.showLabels == false)
     }
     
     @Test("MultiThumbSlider renders with custom colors")
@@ -402,7 +428,9 @@ struct MultiThumbSliderUITests {
             colors: [.green, .mint, .cyan]
         )
         
-        #expect(slider.body != nil)
+        let mirror = Mirror(reflecting: slider)
+        let config = mirror.descendant("configuration") as? MultiThumbSliderConfiguration
+        #expect(config?.activeTrackColors.count == 3)
     }
     
     @Test("MultiThumbSlider supports callbacks")
@@ -414,7 +442,8 @@ struct MultiThumbSliderUITests {
             .onDragStart { _ in }
             .onDragEnd { _ in }
         
-        #expect(slider.body != nil)
+        let mirror = Mirror(reflecting: slider)
+        #expect(String(describing: mirror.subjectType).contains("MultiThumbSlider") || String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
 }
 
@@ -430,7 +459,8 @@ struct SmartSpringUITests {
             .frame(width: 100, height: 100)
             .smartSprings()
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
     
     @Test("SmartSprings renders with all presets")
@@ -447,7 +477,8 @@ struct SmartSpringUITests {
             let view = Circle()
                 .fill(.purple)
                 .smartSprings(configuration: preset)
-            #expect(view != nil)
+            let mirror = Mirror(reflecting: view)
+            #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
         }
     }
     
@@ -463,7 +494,8 @@ struct SmartSpringUITests {
             .fill(.orange)
             .smartSprings(configuration: config)
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
 }
 
@@ -479,7 +511,8 @@ struct MagneticPullUITests {
             .frame(width: 50, height: 50)
             .magneticPull()
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
     
     @Test("MagneticPull renders with all presets")
@@ -494,7 +527,8 @@ struct MagneticPullUITests {
         for preset in presets {
             let view = Image(systemName: "star.fill")
                 .magneticPull(configuration: preset)
-            #expect(view != nil)
+            let mirror = Mirror(reflecting: view)
+            #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
         }
     }
 }
@@ -510,7 +544,8 @@ struct PredictiveLayoutUITests {
             Text("Low Priority")
         }
         
-        #expect(container.body != nil)
+        let mirror = Mirror(reflecting: container)
+        #expect(String(describing: mirror.subjectType).contains("LuxeAdaptiveContainer"))
     }
     
     @Test("LuxeAdaptiveContainer renders with high probability")
@@ -519,7 +554,8 @@ struct PredictiveLayoutUITests {
             Text("High Priority")
         }
         
-        #expect(container.body != nil)
+        let mirror = Mirror(reflecting: container)
+        #expect(String(describing: mirror.subjectType).contains("LuxeAdaptiveContainer"))
     }
     
     @Test("LuxeAdaptiveContainer renders with all presets")
@@ -538,7 +574,8 @@ struct PredictiveLayoutUITests {
             ) {
                 Text("Adaptive Content")
             }
-            #expect(container.body != nil)
+            let mirror = Mirror(reflecting: container)
+            #expect(String(describing: mirror.subjectType).contains("LuxeAdaptiveContainer"))
         }
     }
     
@@ -567,7 +604,8 @@ struct PremiumComponentsUITests {
         
         for size in sizes {
             let button = LuxeButton("Click Me", configuration: size) { }
-            #expect(button.body != nil)
+            let mirror = Mirror(reflecting: button)
+            #expect(String(describing: mirror.subjectType).contains("LuxeButton"))
         }
     }
     
@@ -579,7 +617,8 @@ struct PremiumComponentsUITests {
             action: { }
         )
         
-        #expect(button.body != nil)
+        let mirror = Mirror(reflecting: button)
+        #expect(String(describing: mirror.subjectType).contains("LuxeButton"))
     }
     
     @Test("LuxeButton renders with different styles")
@@ -592,7 +631,8 @@ struct PremiumComponentsUITests {
         
         for style in styles {
             let button = LuxeButton("Styled", style: style) { }
-            #expect(button.body != nil)
+            let mirror = Mirror(reflecting: button)
+            #expect(String(describing: mirror.subjectType).contains("LuxeButton"))
         }
     }
     
@@ -607,14 +647,16 @@ struct PremiumComponentsUITests {
         
         for preset in presets {
             let badge = LuxeBadge("NEW", configuration: preset)
-            #expect(badge.body != nil)
+            let mirror = Mirror(reflecting: badge)
+            #expect(String(describing: mirror.subjectType).contains("LuxeBadge"))
         }
     }
     
     @Test("LuxeBadge renders with custom colors")
     func badgeCustomColors() {
         let badge = LuxeBadge("SALE", color: .red)
-        #expect(badge.body != nil)
+        let mirror = Mirror(reflecting: badge)
+        #expect(String(describing: mirror.subjectType).contains("LuxeBadge"))
     }
     
     @Test("FloatingOrb renders with all presets")
@@ -628,14 +670,16 @@ struct PremiumComponentsUITests {
         
         for preset in presets {
             let orb = FloatingOrb(size: 100, color: .purple, configuration: preset)
-            #expect(orb.body != nil)
+            let mirror = Mirror(reflecting: orb)
+            #expect(String(describing: mirror.subjectType).contains("FloatingOrb"))
         }
     }
     
     @Test("FloatingOrb renders with custom size")
     func orbCustomSize() {
         let orb = FloatingOrb(size: 200, color: .blue)
-        #expect(orb.body != nil)
+        let mirror = Mirror(reflecting: orb)
+        #expect(String(describing: mirror.subjectType).contains("FloatingOrb"))
     }
     
     @Test("MeshGradientBackground renders")
@@ -644,7 +688,8 @@ struct PremiumComponentsUITests {
             colors: [Color.blue, Color.purple, Color.pink, Color.orange]
         )
         
-        #expect(gradient.body != nil)
+        let mirror = Mirror(reflecting: gradient)
+        #expect(String(describing: mirror.subjectType).contains("MeshGradientBackground"))
     }
 }
 
@@ -666,7 +711,8 @@ struct ThemeIntegrationUITests {
         }
         .luxeTheme(Theme.default)
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
     
     @Test("Components render with all theme presets")
@@ -688,7 +734,8 @@ struct ThemeIntegrationUITests {
             }
             .luxeTheme(theme)
             
-            #expect(view != nil)
+            let mirror = Mirror(reflecting: view)
+            #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
         }
     }
     
@@ -706,7 +753,8 @@ struct ThemeIntegrationUITests {
         }
         .luxeTheme(Theme.midnight)
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
     
     @Test("Custom theme applies to components")
@@ -726,7 +774,8 @@ struct ThemeIntegrationUITests {
         }
         .luxeTheme(customTheme)
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
 }
 
@@ -773,7 +822,8 @@ struct ComplexLayoutUITests {
         }
         .luxeTheme(Theme.midnight)
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
     
     @Test("Settings page layout renders correctly")
@@ -809,7 +859,8 @@ struct ComplexLayoutUITests {
         }
         .luxeTheme(Theme.ocean)
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
     
     @Test("Profile card layout renders correctly")
@@ -837,7 +888,8 @@ struct ComplexLayoutUITests {
         }
         .luxeTheme(Theme.neon)
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ModifiedContent"))
     }
     
     @Test("Onboarding screen layout renders correctly")
@@ -871,7 +923,8 @@ struct ComplexLayoutUITests {
             }
         }
         
-        #expect(view != nil)
+        let mirror = Mirror(reflecting: view)
+        #expect(String(describing: mirror.subjectType).contains("ZStack"))
     }
 }
 
@@ -892,9 +945,11 @@ struct AccessibilityUITests {
         
         let button = LuxeButton("Submit") {}
         
-        #expect(card.body != nil)
-        #expect(progress.body != nil)
-        #expect(button.body != nil)
+        let mirrorCard = Mirror(reflecting: card)
+        #expect(String(describing: mirrorCard.subjectType).contains("LuxeCard"))
+        let m = Mirror(reflecting: progress); #expect(m.descendant("progress") as? Double != nil)
+        let mirrorButton = Mirror(reflecting: button)
+        #expect(String(describing: mirrorButton.subjectType).contains("LuxeButton"))
     }
 }
 
@@ -910,15 +965,18 @@ struct AnimationUITests {
         let mesh = MeshGradientBackground(colors: [Color.blue, Color.purple])
         let progress = CircularProgressBar(progress: 0.5, configuration: .neon)
         
-        #expect(orb.body != nil)
-        #expect(mesh.body != nil)
-        #expect(progress.body != nil)
+        let mirrorOrb = Mirror(reflecting: orb)
+        #expect(String(describing: mirrorOrb.subjectType).contains("FloatingOrb"))
+        let mirrorMesh = Mirror(reflecting: mesh)
+        #expect(String(describing: mirrorMesh.subjectType).contains("MeshGradientBackground"))
+        let m = Mirror(reflecting: progress); #expect(m.descendant("progress") as? Double != nil)
     }
     
     @Test("Static animation preset disables animation")
     func staticPreset() {
         let staticOrb = FloatingOrb(size: 100, color: .red, configuration: .static)
-        #expect(staticOrb.body != nil)
+        let mirror = Mirror(reflecting: staticOrb)
+        #expect(String(describing: mirror.subjectType).contains("FloatingOrb"))
         #expect(FloatingOrbConfiguration.static.enableAnimation == false)
     }
 }

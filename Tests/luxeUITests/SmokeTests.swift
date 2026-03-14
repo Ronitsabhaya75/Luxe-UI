@@ -172,12 +172,20 @@ struct LuxeCardSmokeTests {
         let card = LuxeCard {
             Text("Test Content")
         }
-        #expect(card != nil)
+        
+        let mirror = Mirror(reflecting: card)
+        let config = mirror.descendant("configuration") as? LuxeCardConfiguration
+        #expect(config != nil)
+        #expect(config?.cornerRadius == LuxeCardConfiguration.default.cornerRadius)
         
         let configuredCard = LuxeCard(configuration: .prominent) {
             Text("Configured Content")
         }
-        #expect(configuredCard != nil)
+        
+        let configuredMirror = Mirror(reflecting: configuredCard)
+        let customConfig = configuredMirror.descendant("configuration") as? LuxeCardConfiguration
+        #expect(customConfig != nil)
+        #expect(customConfig?.hoverScale == 1.05)
     }
 }
 
@@ -225,12 +233,20 @@ struct GlassmorphismSmokeTests {
         let container = GlassmorphismContainer {
             Text("Glass Content")
         }
-        #expect(container != nil)
+        
+        let mirror = Mirror(reflecting: container)
+        let config = mirror.descendant("configuration") as? GlassmorphismConfiguration
+        #expect(config != nil)
+        #expect(config?.blurRadius == 20)
         
         let configuredContainer = GlassmorphismContainer(configuration: .frosted) {
             Text("Frosted Content")
         }
-        #expect(configuredContainer != nil)
+        
+        let configuredMirror = Mirror(reflecting: configuredContainer)
+        let frostedConfig = configuredMirror.descendant("configuration") as? GlassmorphismConfiguration
+        #expect(frostedConfig != nil)
+        #expect(frostedConfig?.backgroundOpacity == 0.1)
     }
 }
 
@@ -342,13 +358,18 @@ struct CircularProgressSmokeTests {
     @Test("CircularProgressBar view can be instantiated")
     func viewInstantiation() {
         let progress = CircularProgressBar(progress: 0.5)
-        #expect(progress != nil)
+        let mirror = Mirror(reflecting: progress)
+        let value = mirror.descendant("progress") as? Double
+        #expect(value == 0.5)
         
         let configuredProgress = CircularProgressBar(
             progress: 0.75,
             configuration: .neon
         )
-        #expect(configuredProgress != nil)
+        let configuredMirror = Mirror(reflecting: configuredProgress)
+        let neonConfig = configuredMirror.descendant("configuration") as? CircularProgressConfiguration
+        #expect(neonConfig != nil)
+        #expect(neonConfig?.glowRadius == 15)
     }
 }
 
