@@ -1,6 +1,5 @@
 {
   "buildCommand": "",
   "outputDirectory": "docs",
-  "framework": "static",
-  "env": []
+  "framework": "static"
 }
