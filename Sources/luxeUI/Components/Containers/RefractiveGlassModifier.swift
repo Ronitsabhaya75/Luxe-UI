@@ -467,6 +467,37 @@ public struct LensDistortionEffect: GeometryEffect {
     }
 }
 
+// MARK: - Helper Types for Lens Distortion
+
+struct SizePreferenceKey: PreferenceKey {
+    static let defaultValue: CGSize = .zero
+    
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        let next = nextValue()
+        value = next == .zero ? value : next
+    }
+}
+
+@available(iOS 17.0, macOS 14.0, *)
+private struct GPULensDistortionModifier: ViewModifier {
+    let intensity: Double
+    let radius: CGFloat
+    
+    @State private var size: CGSize = .zero
+    
+    func body(content: Content) -> some View {
+        content
+            .gpuLensDistortion(
+                size: size,
+                intensity: intensity,
+                radius: radius
+            )
+            .onPreferenceChange(SizePreferenceKey.self) { newSize in
+                size = newSize
+            }
+    }
+}
+
 // MARK: - Lens Distortion Wrapper
 
 private struct LensDistortionWrapper: ViewModifier {
@@ -477,14 +508,18 @@ private struct LensDistortionWrapper: ViewModifier {
         Group {
             if configuration.enableGPU {
                 if #available(iOS 17.0, macOS 14.0, *) {
-                    GeometryReader { geometry in
-                        content
-                            .gpuLensDistortion(
-                                size: geometry.size,
-                                intensity: intensity,
-                                radius: configuration.distortionRadius
-                            )
-                    }
+                    content
+                        .background(GeometryReader { geometry in
+                            Color.clear
+                                .preference(key: SizePreferenceKey.self, value: geometry.size)
+                        })
+                        .onPreferenceChange(SizePreferenceKey.self) { size in
+                            // Size is captured for application
+                        }
+                        .modifier(GPULensDistortionModifier(
+                            intensity: intensity,
+                            radius: configuration.distortionRadius
+                        ))
                 } else {
                     content.modifier(LensDistortionEffect(
                         intensity: intensity,

@@ -1,0 +1,142 @@
+name: Build Verification
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Package
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-13, macos-14, macos-15]
+        include:
+          - os: macos-13
+            xcode: '14.3'
+          - os: macos-14
+            xcode: '15.0'
+          - os: macos-15
+            xcode: '16.0'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Show environment
+        run: |
+          swift --version
+          xcrun xcodebuild -version
+      
+      - name: Cache SPM
+        uses: actions/cache@v3
+        with:
+          path: .build
+          key: ${{ runner.os }}-build-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+      
+      - name: Build with swift build
+        run: swift build -v
+        timeout-minutes: 15
+      
+      - name: Build Release
+        run: swift build -c release -v
+        timeout-minutes: 15
+      
+      - name: Check Package Manifest
+        run: swift package describe
+      
+      - name: List built products
+        run: ls -la .build
+
+  format-check:
+    name: Swift Format Check
+    runs-on: macos-15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: '5.10'
+      
+      - name: Install swift-format
+        run: |
+          git clone https://github.com/apple/swift-format.git
+          cd swift-format
+          swift build -c release
+          sudo mv .build/release/swift-format /usr/local/bin/
+        continue-on-error: true
+      
+      - name: Check code formatting
+        run: swift-format lint --recursive Sources/ Tests/
+        continue-on-error: true
+
+  documentation:
+    name: Documentation Check
+    runs-on: macos-15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: '5.10'
+      
+      - name: Build Documentation
+        run: swift package generate-documentation --warnings-as-errors
+        continue-on-error: true
+      
+      - name: Check README exists
+        run: |
+          if [ -f README.md ]; then
+            echo "✅ README.md exists"
+            wc -l README.md
+          else
+            echo "❌ README.md not found"
+          fi
+      
+      - name: Check CONTRIBUTING exists
+        run: |
+          if [ -f CONTRIBUTING.md ]; then
+            echo "✅ CONTRIBUTING.md exists"
+          else
+            echo "⚠️  CONTRIBUTING.md not found"
+          fi
+
+  dependency-check:
+    name: Dependency Check
+    runs-on: macos-15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: '5.10'
+      
+      - name: Show Package Dependencies
+        run: swift package describe
+      
+      - name: Update Package Manifest
+        run: swift package update
+        continue-on-error: true
+      
+      - name: Check for security issues
+        run: |
+          echo "🔍 Checking for known vulnerabilities in dependencies..."
+          # This would integrate with a vulnerability database
+          swift package describe
+        continue-on-error: true

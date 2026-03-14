@@ -86,7 +86,7 @@ final class GPURendererTests: XCTestCase {
         
         let mirror = Mirror(reflecting: view)
         
-        let mirroredProgress = mirror.descendant("progress") as? CGFloat
+        let mirroredProgress = mirror.descendant("progress") as? Double
         XCTAssertEqual(mirroredProgress, 0.65)
         
         let mirroredConfig = mirror.descendant("configuration") as? LiquidProgressConfiguration

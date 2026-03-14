@@ -64,13 +64,14 @@ public extension View {
     
     /// Applies lens distortion (pincushion/barrel) via metal distortion shader.
     func gpuLensDistortion(size: CGSize, intensity: Double, radius: CGFloat) -> some View {
-        self.distortionEffect(
+        let maxOffset = max(1.0, CGFloat(intensity) * radius * 0.1)
+        return self.distortionEffect(
             ShaderLibrary.lensDistortion(
                 .float2(size),
                 .float(intensity),
                 .float(radius)
             ),
-            maxSampleOffset: .zero
+            maxSampleOffset: CGSize(width: maxOffset, height: maxOffset)
         )
     }
 }

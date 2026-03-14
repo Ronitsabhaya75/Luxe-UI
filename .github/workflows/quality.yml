@@ -1,0 +1,137 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  swiftlint:
+    name: SwiftLint
+    runs-on: macos-15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install SwiftLint
+        run: |
+          brew install swiftlint
+      
+      - name: Run SwiftLint
+        run: |
+          swiftlint --version
+          swiftlint lint --strict Sources/ Tests/
+        continue-on-error: true
+      
+      - name: Generate SwiftLint Report
+        if: failure()
+        run: swiftlint lint --reporter json Sources/ Tests/ > swiftlint-report.json || true
+
+  code-metrics:
+    name: Code Metrics
+    runs-on: macos-15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: '5.10'
+      
+      - name: Count lines of code
+        run: |
+          echo "📊 Code Statistics:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Source Code:**" >> $GITHUB_STEP_SUMMARY
+          find Sources -name "*.swift" | wc -l | xargs echo "- Swift files:" >> $GITHUB_STEP_SUMMARY
+          find Sources -name "*.swift" -exec wc -l {} + | tail -1 >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Test Code:**" >> $GITHUB_STEP_SUMMARY
+          find Tests -name "*.swift" | wc -l | xargs echo "- Test files:" >> $GITHUB_STEP_SUMMARY
+          find Tests -name "*.swift" -exec wc -l {} + | tail -1 >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Metal Shaders:**" >> $GITHUB_STEP_SUMMARY
+          find . -name "*.metal" | wc -l | xargs echo "- Shader files:" >> $GITHUB_STEP_SUMMARY
+
+  complexity-check:
+    name: Cyclomatic Complexity
+    runs-on: macos-15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install Lizard
+        run: pip3 install lizard
+      
+      - name: Analyze complexity
+        run: |
+          echo "🔍 Complexity Analysis:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          lizard Sources/ -l swift --csv | head -20 || true
+        continue-on-error: true
+
+  security-check:
+    name: Security Analysis
+    runs-on: macos-15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run security checks
+        run: |
+          echo "🔒 Security Checks:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Checking for hardcoded credentials...**" >> $GITHUB_STEP_SUMMARY
+          
+          if grep -r "password\|secret\|token\|api.key" Sources/ --include="*.swift" 2>/dev/null | grep -v "//" | grep -v "///" ; then
+            echo "⚠️ Potential hardcoded credentials found!" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ No hardcoded credentials detected" >> $GITHUB_STEP_SUMMARY
+          fi
+        continue-on-error: true
+      
+      - name: Check for TODO/FIXME
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**TODO/FIXME items:**" >> $GITHUB_STEP_SUMMARY
+          TODO_COUNT=$(grep -r "TODO\|FIXME" Sources/ --include="*.swift" | wc -l)
+          echo "- Found: $TODO_COUNT items" >> $GITHUB_STEP_SUMMARY
+          grep -r "TODO\|FIXME" Sources/ --include="*.swift" | head -10 || true
+
+  consistency-check:
+    name: Consistency Checks
+    runs-on: macos-15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check file naming conventions
+        run: |
+          echo "📛 File Naming Conventions:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Check for camelCase files (should be PascalCase)
+          LOWER_FILES=$(find Sources/ -name "*.swift" | grep -c '^Sources/[a-z]' || true)
+          if [ "$LOWER_FILES" -gt 0 ]; then
+            echo "⚠️ Found $LOWER_FILES files starting with lowercase" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ All files follow naming conventions" >> $GITHUB_STEP_SUMMARY
+          fi
+        continue-on-error: true
+      
+      - name: Check for orphaned files
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**File Organization:**" >> $GITHUB_STEP_SUMMARY
+          find Sources -name "*.swift" -type f | wc -l | xargs echo "- Total source files:" >> $GITHUB_STEP_SUMMARY
