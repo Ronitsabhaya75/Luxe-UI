@@ -1,5 +1,4 @@
 {
   "buildCommand": "",
-  "outputDirectory": "docs",
-  "framework": "static"
+  "outputDirectory": "docs"
 }
