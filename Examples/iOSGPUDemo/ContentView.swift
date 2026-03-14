@@ -7,7 +7,6 @@ struct ContentView: View {
     @State private var radius: CGFloat = 10.0
     @State private var animationProgress: Double = 0.0
     @State private var isAnimating = true
-    @State private var animationTimer: Timer?
     
     var body: some View {
         ZStack {
@@ -123,11 +122,20 @@ struct ContentView: View {
                                     )
                                 )
                             
-                            LiquidBlob(
-                                colors: [.cyan, .blue],
-                                size: 120,
-                                configuration: .pulsing
-                            )
+                            VStack {
+                                LiquidBlob(animationProgress: animationProgress)
+                                    .fill(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [
+                                                .cyan,
+                                                .blue
+                                            ]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
+                                    .frame(maxWidth: 120, maxHeight: 120)
+                            }
                         }
                         .frame(height: 250)
                         
@@ -143,6 +151,7 @@ struct ContentView: View {
                                     .background(Color.cyan.opacity(0.6))
                                     .cornerRadius(8)
                             }
+                            .disabled(!isAnimating)
                             
                             Button(action: { animationProgress = 0 }) {
                                 Text("Reset")
@@ -172,13 +181,8 @@ struct ContentView: View {
                                 .fill(Color.purple.opacity(0.1))
                             
                             VStack(spacing: 24) {
-                                LiquidLoader(
-                                    configuration: LiquidLoaderConfiguration(
-                                        blobColor: .purple,
-                                        enableGPU: true
-                                    )
-                                )
-                                .frame(width: 100, height: 100)
+                                LiquidLoader(animationProgress: animationProgress, color: .purple)
+                                    .frame(width: 100, height: 100)
                                 
                                 Text("Loading...")
                                     .font(.caption)
