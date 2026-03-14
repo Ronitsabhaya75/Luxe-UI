@@ -13,6 +13,7 @@ let package = Package(
         .library(name: "LuxeUI", targets: ["LuxeUI"]),
         .executable(name: "CoreComponentsDemo", targets: ["CoreComponentsDemo"]),
         .executable(name: "LiquidUIDemo", targets: ["LiquidUIDemo"]),
+        .executable(name: "iOSGPUDemo", targets: ["iOSGPUDemo"]),
     ],
     targets: [
         .target(
@@ -31,6 +32,11 @@ let package = Package(
             name: "LiquidUIDemo",
             dependencies: ["LuxeUI"],
             path: "Examples/LiquidUIDemo"
+        ),
+        .executableTarget(
+            name: "iOSGPUDemo",
+            dependencies: ["LuxeUI"],
+            path: "Examples/iOSGPUDemo"
         ),
         .testTarget(
             name: "LuxeUITests",

@@ -1,61 +1,55 @@
 # iOS GPU Demo App
 
-This is an interactive demo app showcasing LuxeUI's GPU-accelerated rendering on iOS.
-
-## Features
-
-- **Tab 1: Liquid Blob Effects** - Animated blob shapes with Metal shader rendering
-- **Tab 2: Refractive Glass** - Glassmorphism cards with GPU distortion effects
-- **Tab 3: Progress & Loading** - Animated progress bars and liquid loaders
-- **Tab 4: Buttons & Interactions** - GPU-accelerated button components
+GPU-accelerated rendering demo showcasing LuxeUI effects on iOS/iPhone simulator.
 
 ## Running the Demo
 
-### From Xcode
-1. Open this project in Xcode
-2. Select "iOSGPUDemo" as the active scheme
-3. Choose an iPhone simulator (iPhone 16, iPhone 15, etc.)
-4. Press ⌘R to run
+### Prerequisites
+- macOS with Xcode installed
+- iPhone simulator (any iOS 16+ device)
 
-### From Command Line
+### Quick Start
+
+**Open in Xcode:**
 ```bash
 cd Examples/iOSGPUDemo
-swift run -c debug
+open .  # Opens in Xcode
 ```
 
-### Viewing on Simulator
-- Swipe between tabs to explore different GPU rendering effects
-- The app demonstrates real-time Metal shader processing
-- Watch the animations to see the GPU acceleration in action
-- Try the interactive controls (tap buttons, adjust progress)
+**Or run from command line:**
+```bash
+cd Examples/iOSGPUDemo
+swift build
+# Then select the scheme in Xcode and run on simulator
+```
 
-## Requirements
+## Features Demonstrated
 
-- iOS 14.0+
-- iPhone or iPad simulator
-- Xcode 15.0+
-- LuxeUI (automatically available via package dependency)
+1. **Refractive Glass** - Lens distortion + chromatic aberration + caustic light effects
+2. **Liquid Blob** - Smooth morphing liquid animation using Metal shaders
+3. **Liquid Loader** - Metaball-based loading indicator
+4. **Circular Progress** - Gradient progress bar with GPU acceleration
 
-## GPU Rendering Features Demonstrated
+## GPU Effects in Action
 
-1. **Metal Shaders** - Direct GPU computation for:
-   - Liquid blob morphing
-   - Lens distortion
-   - Chromatic aberration
-   - Caustic light effects
-
-2. **SwiftUI Integration** - Seamless GPU effects in declarative UI
-
-3. **Real-time Performance** - Smooth 60+ FPS animations
+- Metal shader compilation and execution
+- Real-time distortion effects
+- Caustic light simulation
+- Liquid/metaball animations
+- Progress visualization
 
 ## Troubleshooting
 
-If the app crashes:
-- Ensure your iOS simulator is up to date
-- Rebuild the LuxeUI package
-- Check the build logs for Metal shader compilation errors
+If the simulator doesn't launch:
+1. Make sure you have an iOS 16+ simulator installed
+2. Check that LuxeUI package is properly linked
+3. Run `swift build` first to ensure compilation
 
-For GPU rendering issues:
-- Xcode > Window > Devices and Simulators > Reset Contents and Settings
-- Try a different simulator device
-- Check that Metal is properly supported on your Mac
+## Performance Notes
+
+GPU rendering provides smooth 60+ FPS animations on:
+- iPhone Pro models
+- iPad Pro devices
+- iPad Air 5+
+
+Older simulators may show reduced performance due to Metal shader limitations.
