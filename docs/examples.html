@@ -459,6 +459,77 @@
                 </div>
             </section>
 
+            <!-- iOS GPU Demo -->
+            <section class="example-section" id="ios-gpu-demo">
+                <h2><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="margin-right:12px; vertical-align:text-bottom">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                        <line x1="12" y1="18" x2="12.01" y2="18" />
+                    </svg> iOS GPU Demo App</h2>
+                <p>An interactive demo showcasing all GPU-accelerated effects running on iPhone simulator:</p>
+
+                <div class="component-features" style="margin: 20px 0;">
+                    <div class="feature-item">
+                        <span class="feature-check">📱</span>
+                        <span>Interactive 4-tab demonstrator app</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-check">🎨</span>
+                        <span>Refractive Glass with adjustable intensity and radius</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-check">💧</span>
+                        <span>Liquid Blob with play/pause animation controls</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-check">⚙️</span>
+                        <span>Liquid Loader with orbiting metaball effects</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-check">📊</span>
+                        <span>Circular Progress Bar with interactive controls</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-check">⚡</span>
+                        <span>60+ FPS Metal shader rendering</span>
+                    </div>
+                </div>
+
+                <h3>Running the iOS GPU Demo</h3>
+                <div class="code-block">
+                    <pre><code><span class="code-comment"># Clone the repository</span>
+git clone https://github.com/Ronitsabhaya75/Luxe-UI.git
+cd Luxe-UI
+
+<span class="code-comment"># Open the iOS GPU Demo</span>
+cd Examples/iOSGPUDemo
+
+<span class="code-comment"># Build for iOS simulator</span>
+swift build -c release
+
+<span class="code-comment"># Or open in Xcode</span>
+open iOSGPUDemo.xcodeproj</code></pre>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+
+                <h3>Demo Features</h3>
+                <p><strong>Tab 1: Refractive Glass</strong> - Adjust intensity and radius sliders to see real-time lens distortion effects with chromatic aberration and caustic patterns.</p>
+                
+                <p><strong>Tab 2: Liquid Blob</strong> - Watch morphing liquid shapes animate smoothly with spring physics. Tap play/pause to control the animation.</p>
+                
+                <p><strong>Tab 3: Liquid Loader</strong> - See the gooey metaball loading indicator in action with smooth orbiting animations powered by Metal shaders.</p>
+                
+                <p><strong>Tab 4: Progress Ring</strong> - Interact with a beautiful circular progress bar. Use +/- buttons to change the progress value in real-time.</p>
+
+                <h3>Important Notes</h3>
+                <ul style="margin: 16px 0; padding-left: 20px;">
+                    <li>Requires iOS 15.0+</li>
+                    <li>Best viewed on iPhone 14+ simulator models for full GPU acceleration</li>
+                    <li>Metal shaders require a compatible iOS device or simulator</li>
+                    <li>All effects run at 60+ FPS on supported hardware</li>
+                </ul>
+            </section>
+
         </div>
     </main>
 
