@@ -1,12 +1,10 @@
-name: CI
+name: Build & Test
 
 on:
   push:
     branches: [ main, develop ]
   pull_request:
-    branches: [ main, develop ]
-  schedule:
-    - cron: '0 2 * * *'
+    branches: [ main]
 
 permissions:
   contents: read
@@ -30,8 +28,6 @@ jobs:
       # 2. SETUP SWIFT
       - name: Setup Swift
         uses: swift-actions/setup-swift@v1
-        with:
-          swift-version: '5.10'
       
       # 3. CACHE
       - name: Cache Swift Package Manager
