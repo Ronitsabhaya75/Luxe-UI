@@ -1,13 +1,13 @@
 # 🎯 CI/CD Quick Reference
 
-## Status Dashboard
+## Single File CI Pipeline
 
-| Workflow | Tests | Duration | Status |
-|----------|-------|----------|--------|
-| **tests.yml** | 159+ | ~2 min | ✅ Running |
-| **build.yml** | 3 OS × 2 Swift | ~10 min | ✅ Running |
-| **quality.yml** | 5 checks | ~5 min | ✅ Running |
-| **coverage.yml** | 4 jobs | ~8 min | ✅ Running |
+**File:** `.github/workflows/ci.yml`  
+**Runs:** On push to main/develop, PRs, and daily schedule  
+**Duration:** ~10 minutes total  
+**Includes:** Build + Tests + Quality + Coverage + Security  
+
+---
 
 ## Workflow Triggers
 

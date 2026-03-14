@@ -1,108 +1,52 @@
 # 🚀 LuxeUI CI/CD Pipeline
 
-Complete continuous integration and deployment setup for LuxeUI with comprehensive test coverage, quality checks, and performance monitoring.
+Complete continuous integration setup for LuxeUI with comprehensive test coverage, quality checks, and performance monitoring - **all in one unified workflow**.
 
 ## Quick Summary
 
-✅ **4 Automated Workflows**  
+✅ **Single Unified Workflow** (ci.yml)  
 ✅ **159+ Tests** across 47 suites  
-✅ **Multi-OS Testing** (macOS 13, 14, 15)  
-✅ **Multi-Swift Version** (5.9, 5.10)  
-✅ **Real-time GPU Rendering Tests**  
+✅ **Build + Test + Quality + Coverage** all in one run  
+✅ **GPU Rendering Tests** with Metal shader validation  
 ✅ **Code Quality & Security Checks**  
+✅ **Fast parallel execution** (~10 minutes total)  
 
 ---
 
-## 📋 CI Workflows
+## 📋 Unified CI Workflow
 
-### 1. **Comprehensive Tests** (`tests.yml`)
-Main testing pipeline running all test suites automatically.
+### **CI Pipeline** (`ci.yml`)
+Complete build, test, quality, and coverage pipeline in one workflow.
 
 **Triggers:**
 - Push to `main` or `develop`
 - Pull requests to `main` or `develop`
 - Daily schedule (2 AM UTC)
 
-**Jobs:**
-- ✅ **Test Matrix** - Swift tests on macOS 13/14/15 with Swift 5.9/5.10
-- ✅ **Smoke Tests** - All component instantiation tests (15 suites)
-- ✅ **Integration Tests** - Cross-component interaction tests
-- ✅ **GPU Renderer Tests** - Metal shader and GPU acceleration tests (Fixed ✓)
-- ✅ **Configuration Tests** - All component configuration options (12 suites)
-- ✅ **UI Tests** - View rendering and behavior tests (8 suites)
-- ✅ **Example Builds** - CoreComponentsDemo & LiquidUIDemo
-- ✅ **Test Summary** - Aggregated results reporting
+**All-in-One Jobs:**
+1. ✅ **Checkout** - Fetch latest code
+2. ✅ **Setup Swift** - Configure Swift 5.10
+3. ✅ **Cache** - Automatic SPM caching
+4. ✅ **Build (Debug)** - Compile debug binary
+5. ✅ **Build (Release)** - Compile optimized binary
+6. ✅ **Comprehensive Tests** - Run all 159+ tests with GPU validation
+7. ✅ **Code Coverage** - Enable coverage tracking
+8. ✅ **SwiftLint** - Code style analysis
+9. ✅ **Swift Format** - Code formatting check
+10. ✅ **Security Analysis** - Hardcoded credentials scan
+11. ✅ **Build Examples** - Verify demo projects
+12. ✅ **Documentation Check** - Verify README/docs
+13. ✅ **Code Metrics** - Generate statistics
+14. ✅ **Summary Report** - Final CI status
 
 **Coverage:**
 ```
 Tests: 159+
 Suites: 47
-Duration: ~1-2 minutes
+Build: Debug + Release
+Quality: Lint + Format + Security
+Duration: ~10 minutes
 ```
-
----
-
-### 2. **Build Verification** (`build.yml`)
-Ensures successful compilation on all supported configurations.
-
-**Triggers:**
-- Push to `main` or `develop`
-- Pull requests
-
-**Jobs:**
-- ✅ **Build Package** - Debug & Release builds on macOS 13/14/15
-- ✅ **Swift Format** - Code formatting compliance
-- ✅ **Documentation** - Documentation generation check
-- ✅ **Dependency Check** - Package dependency verification
-
-**Output:**
-- Build artifacts validated
-- Code formatting verified
-- Dependencies up-to-date
-- Documentation buildable
-
----
-
-### 3. **Code Quality** (`quality.yml`)
-Code quality, security, and consistency checks.
-
-**Triggers:**
-- Push to `main` or `develop`
-- Pull requests
-
-**Jobs:**
-- ✅ **SwiftLint** - Code style analysis (strict mode)
-- ✅ **Code Metrics** - Lines of code, file counts
-- ✅ **Cyclomatic Complexity** - Code complexity analysis
-- ✅ **Security Check** - Hardcoded credentials, TODO/FIXME items
-- ✅ **Consistency Check** - File naming conventions
-
-**Reports:**
-- Style violations
-- Code statistics
-- Security issues
-- TODO/FIXME inventory
-
----
-
-### 4. **Coverage & Performance** (`coverage.yml`)
-Test coverage reporting and performance benchmarking.
-
-**Triggers:**
-- Push to `main` or `develop`
-- Pull requests
-
-**Jobs:**
-- ✅ **Test Coverage** - Code coverage analysis & Codecov integration
-- ✅ **Performance Benchmarks** - GPU rendering metrics
-- ✅ **Build Time Analysis** - Compilation performance
-- ✅ **Resource Analysis** - Binary size, source metrics
-
-**Metrics:**
-- Coverage percentage
-- GPU utilization per component
-- Build time trending
-- Memory footprint
 
 ---
 
@@ -376,22 +320,23 @@ For issues with CI/CD pipeline:
 
 ---
 
-## ✨ CI/CD Features Summary
+## ✨ CI/CD Single File Summary
 
-| Feature | Status | Location |
-|---------|--------|----------|
-| Multi-OS Testing | ✅ | tests.yml |
-| Multi-Swift Version | ✅ | tests.yml |
-| GPU Rendering Tests | ✅ | tests.yml |
-| Integration Tests | ✅ | tests.yml |
-| Smoke Tests | ✅ | tests.yml |
-| Build Verification | ✅ | build.yml |
-| Code Quality | ✅ | quality.yml |
-| Security Checks | ✅ | quality.yml |
-| Coverage Reporting | ✅ | coverage.yml |
-| Performance Analysis | ✅ | coverage.yml |
-| Caching | ✅ | All workflows |
-| Parallel Execution | ✅ | All workflows |
+| Feature | Status | File |
+|---------|--------|------|
+| Build (Debug & Release) | ✅ | ci.yml |
+| Test Suite (159+ tests) | ✅ | ci.yml |
+| GPU Rendering Tests | ✅ | ci.yml |
+| Integration Tests | ✅ | ci.yml |
+| Smoke Tests | ✅ | ci.yml |
+| Code Quality (SwiftLint) | ✅ | ci.yml |
+| Code Format Check | ✅ | ci.yml |
+| Security Analysis | ✅ | ci.yml |
+| Coverage Reporting | ✅ | ci.yml |
+| Documentation Check | ✅ | ci.yml |
+| Code Metrics | ✅ | ci.yml |
+| Caching | ✅ | ci.yml |
+| Parallel Execution | ✅ | ci.yml |
 
 ---
 
@@ -399,3 +344,4 @@ For issues with CI/CD pipeline:
 **Status:** ✅ Production Ready  
 **Test Coverage:** 159+ Tests / 47 Suites  
 **GPU Pipeline:** Fully Operational
+
