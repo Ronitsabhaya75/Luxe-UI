@@ -25,12 +25,6 @@ jobs:
         with:
           fetch-depth: 0
       
-      # 2. SETUP SWIFT
-      - name: Setup Swift
-        uses: swift-actions/setup-swift@v1
-        with:
-          swift-version: 'latest'
-      
       # 3. CACHE
       - name: Cache Swift Package Manager
         uses: actions/cache@v3
