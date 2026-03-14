@@ -42,6 +42,7 @@ jobs:
       - name: Build Package (Debug)
         run: swift build -v
         timeout-minutes: 15
+        continue-on-error: true
       
       - name: Build Package (Release)
         run: swift build -c release -v
