@@ -22,19 +22,22 @@ public struct LiquidBlobConfiguration: Sendable {
     public var pulseScale: CGFloat
     public var rotationEnabled: Bool
     public var blurRadius: CGFloat
+    public var enableGPU: Bool
     
     public init(
         animationDuration: Double = 8.0,
         morphIntensity: CGFloat = 0.3,
         pulseScale: CGFloat = 1.1,
         rotationEnabled: Bool = true,
-        blurRadius: CGFloat = 20
+        blurRadius: CGFloat = 20,
+        enableGPU: Bool = true
     ) {
         self.animationDuration = animationDuration
         self.morphIntensity = morphIntensity
         self.pulseScale = pulseScale
         self.rotationEnabled = rotationEnabled
         self.blurRadius = blurRadius
+        self.enableGPU = enableGPU
     }
     
     public static let `default` = LiquidBlobConfiguration()
@@ -65,6 +68,50 @@ public struct LiquidBlob: View {
     }
     
     public var body: some View {
+        Group {
+            if configuration.enableGPU {
+                if #available(iOS 17.0, macOS 14.0, *) {
+                    gpuBody
+                } else {
+                    cpuBody
+                }
+            } else {
+                cpuBody
+            }
+        }
+        .scaleEffect(scale)
+        .rotationEffect(.degrees(rotation))
+        .onAppear {
+            startAnimations()
+        }
+    }
+    
+    @available(iOS 17.0, macOS 14.0, *)
+    private var gpuBody: some View {
+        ZStack {
+            ForEach(0..<3, id: \.self) { index in
+                Rectangle()
+                    .fill(
+                        LinearGradient(
+                            colors: colors,
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: size, height: size)
+                    .gpuLiquidBlob(
+                        size: CGSize(width: size, height: size),
+                        phase: phase + Double(index) * 0.33,
+                        morphIntensity: configuration.morphIntensity
+                    )
+                    .blur(radius: configuration.blurRadius)
+                    .opacity(0.7 - Double(index) * 0.2)
+                    .scaleEffect(1.0 + CGFloat(index) * 0.1)
+            }
+        }
+    }
+    
+    private var cpuBody: some View {
         ZStack {
             ForEach(0..<3, id: \.self) { index in
                 BlobShape(
@@ -83,11 +130,6 @@ public struct LiquidBlob: View {
                 .opacity(0.7 - Double(index) * 0.2)
                 .scaleEffect(1.0 + CGFloat(index) * 0.1)
             }
-        }
-        .scaleEffect(scale)
-        .rotationEffect(.degrees(rotation))
-        .onAppear {
-            startAnimations()
         }
     }
     

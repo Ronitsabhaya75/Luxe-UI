@@ -9,19 +9,22 @@ public struct LiquidLoaderConfiguration: Sendable {
     public var blobColor: Color
     public var blurRadius: CGFloat
     public var scaleEffect: CGFloat
+    public var enableGPU: Bool
     
     public init(
         circleCount: Int = 5,
         speed: Double = 1.0,
         blobColor: Color = .blue,
         blurRadius: CGFloat = 10,
-        scaleEffect: CGFloat = 1.0
+        scaleEffect: CGFloat = 1.0,
+        enableGPU: Bool = true
     ) {
         self.circleCount = circleCount
         self.speed = speed
         self.blobColor = blobColor
         self.blurRadius = blurRadius
         self.scaleEffect = scaleEffect
+        self.enableGPU = enableGPU
     }
     
     public static let `default` = LiquidLoaderConfiguration()
@@ -53,61 +56,85 @@ public struct LiquidLoader: View {
     
     public var body: some View {
         TimelineView(.animation) { timeline in
-            Canvas { context, size in
-                // Add blur filter to the entire layer to create the "goo" base
-                context.addFilter(.alphaThreshold(min: 0.5, color: configuration.blobColor))
-                context.addFilter(.blur(radius: configuration.blurRadius))
-                
-                // Draw symbols
-                context.drawLayer { ctx in
-                    let center = CGPoint(x: size.width / 2, y: size.height / 2)
-                    let radius = min(size.width, size.height) / 3
-                    
-                    for i in 0..<configuration.circleCount {
-                        let angle = (Double(i) / Double(configuration.circleCount)) * 2 * .pi
-                        let timeOffset = timeline.date.timeIntervalSinceReferenceDate * configuration.speed
-                        
-                        // Calculate position with orbital movement
-                        let currentAngle = angle + timeOffset
-                        let x = center.x + cos(currentAngle) * radius
-                        let y = center.y + sin(currentAngle) * radius
-                        
-                        // Draw individual blobs
-                        let blobSize = CGSize(
-                            width: size.width / 5 * configuration.scaleEffect,
-                            height: size.height / 5 * configuration.scaleEffect
-                        )
-                        
-                        // Pulsing effect calculation
-                        let pulse = sin(timeOffset * 2 + Double(i)) * 0.2 + 1.0
-                         let pulsedSize = CGSize(
-                            width: blobSize.width * pulse,
-                            height: blobSize.height * pulse
-                        )
-                        
-                        let rect = CGRect(
-                            x: x - pulsedSize.width / 2,
-                            y: y - pulsedSize.height / 2,
-                            width: pulsedSize.width,
-                            height: pulsedSize.height
-                        )
-                        
-                        ctx.fill(Circle().path(in: rect), with: .color(.white))
+            let timeOffset = timeline.date.timeIntervalSinceReferenceDate * configuration.speed
+            
+            Group {
+                if configuration.enableGPU {
+                    if #available(iOS 17.0, macOS 14.0, *) {
+                        GeometryReader { geometry in
+                            Rectangle()
+                                .fill(configuration.blobColor)
+                                .gpuMetaballLoader(
+                                    size: geometry.size,
+                                    timeOffset: timeOffset,
+                                    circleCount: configuration.circleCount,
+                                    scaleEffect: configuration.scaleEffect
+                                )
+                        }
+                    } else {
+                        cpuCanvas(timeOffset: timeOffset)
                     }
-                    
-                    // Draw center anchor blob
-                    let centerBlobSize = CGSize(
-                        width: size.width / 4,
-                        height: size.height / 4
-                    )
-                    let centerRect = CGRect(
-                        x: center.x - centerBlobSize.width / 2,
-                        y: center.y - centerBlobSize.height / 2,
-                        width: centerBlobSize.width,
-                        height: centerBlobSize.height
-                    )
-                    ctx.fill(Circle().path(in: centerRect), with: .color(.white))
+                } else {
+                    cpuCanvas(timeOffset: timeOffset)
                 }
+            }
+        }
+    }
+    
+    private func cpuCanvas(timeOffset: Double) -> some View {
+        Canvas { context, size in
+            // Add blur filter to the entire layer to create the "goo" base
+            context.addFilter(.alphaThreshold(min: 0.5, color: configuration.blobColor))
+            context.addFilter(.blur(radius: configuration.blurRadius))
+            
+            // Draw symbols
+            context.drawLayer { ctx in
+                let center = CGPoint(x: size.width / 2, y: size.height / 2)
+                let radius = min(size.width, size.height) / 3
+                
+                for i in 0..<configuration.circleCount {
+                    let angle = (Double(i) / Double(configuration.circleCount)) * 2 * .pi
+                    
+                    // Calculate position with orbital movement
+                    let currentAngle = angle + timeOffset
+                    let x = center.x + cos(currentAngle) * radius
+                    let y = center.y + sin(currentAngle) * radius
+                    
+                    // Draw individual blobs
+                    let blobSize = CGSize(
+                        width: size.width / 5 * configuration.scaleEffect,
+                        height: size.height / 5 * configuration.scaleEffect
+                    )
+                    
+                    // Pulsing effect calculation
+                    let pulse = sin(timeOffset * 2 + Double(i)) * 0.2 + 1.0
+                     let pulsedSize = CGSize(
+                        width: blobSize.width * pulse,
+                        height: blobSize.height * pulse
+                    )
+                    
+                    let rect = CGRect(
+                        x: x - pulsedSize.width / 2,
+                        y: y - pulsedSize.height / 2,
+                        width: pulsedSize.width,
+                        height: pulsedSize.height
+                    )
+                    
+                    ctx.fill(Circle().path(in: rect), with: .color(.white))
+                }
+                
+                // Draw center anchor blob
+                let centerBlobSize = CGSize(
+                    width: size.width / 4,
+                    height: size.height / 4
+                )
+                let centerRect = CGRect(
+                    x: center.x - centerBlobSize.width / 2,
+                    y: center.y - centerBlobSize.height / 2,
+                    width: centerBlobSize.width,
+                    height: centerBlobSize.height
+                )
+                ctx.fill(Circle().path(in: centerRect), with: .color(.white))
             }
         }
     }

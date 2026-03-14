@@ -17,7 +17,10 @@ let package = Package(
     targets: [
         .target(
             name: "LuxeUI",
-            dependencies: []
+            dependencies: [],
+            resources: [
+                .process("GPU/LuxeShaders.metal")
+            ]
         ),
         .executableTarget(
             name: "CoreComponentsDemo",

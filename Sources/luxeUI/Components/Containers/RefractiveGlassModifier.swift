@@ -71,6 +71,8 @@ public struct RefractiveGlassConfiguration: Sendable {
     public var animationResponse: Double
     /// The spring animation damping. Default: 0.7
     public var animationDamping: Double
+    /// Whether to use GPU acceleration when supported. Default: true
+    public var enableGPU: Bool
     
     public init(
         distortionIntensity: Double = 0.2,
@@ -90,7 +92,8 @@ public struct RefractiveGlassConfiguration: Sendable {
         shadowOpacity: Double = 0.5,
         enableHaptics: Bool = true,
         animationResponse: Double = 0.3,
-        animationDamping: Double = 0.7
+        animationDamping: Double = 0.7,
+        enableGPU: Bool = true
     ) {
         self.distortionIntensity = distortionIntensity
         self.distortionRadius = distortionRadius
@@ -110,6 +113,7 @@ public struct RefractiveGlassConfiguration: Sendable {
         self.enableHaptics = enableHaptics
         self.animationResponse = animationResponse
         self.animationDamping = animationDamping
+        self.enableGPU = enableGPU
     }
     
     // Presets
@@ -227,10 +231,30 @@ public struct RefractiveGlassModifier: ViewModifier {
                     
                     // Optional caustic light patterns
                     if configuration.causticAnimation {
-                        CausticLightCanvas(
-                            phase: phase,
-                            causticCount: configuration.causticCount
-                        )
+                        if configuration.enableGPU {
+                            if #available(iOS 17.0, macOS 14.0, *) {
+                                GeometryReader { geometry in
+                                    Rectangle()
+                                        .fill(.clear)
+                                        .gpuCaustics(
+                                            size: geometry.size,
+                                            phase: phase,
+                                            causticCount: configuration.causticCount
+                                        )
+                                }
+                                .blendMode(.plusLighter)
+                            } else {
+                                CausticLightCanvas(
+                                    phase: phase,
+                                    causticCount: configuration.causticCount
+                                )
+                            }
+                        } else {
+                            CausticLightCanvas(
+                                phase: phase,
+                                causticCount: configuration.causticCount
+                            )
+                        }
                     }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: configuration.cornerRadius))
@@ -281,44 +305,14 @@ private struct RefractiveLayer: View {
     
     var body: some View {
         ZStack {
-            // Base glass material
-            RoundedRectangle(cornerRadius: configuration.cornerRadius)
-                .fill(.ultraThinMaterial)
-                .opacity(0.3 + layerOffset * 0.2)
-            
-            // Chromatic aberration layers
-            if configuration.chromaticAberration {
-                // Red channel
-                RoundedRectangle(cornerRadius: configuration.cornerRadius)
-                    .fill(
-                        RadialGradient(
-                            colors: [.red.opacity(0.1), .clear],
-                            center: .center,
-                            startRadius: 0,
-                            endRadius: configuration.distortionRadius + CGFloat(layer * 20)
-                        )
-                    )
-                    .offset(
-                        x: -configuration.aberrationStrength * (1 + layerOffset),
-                        y: -configuration.aberrationStrength * (1 + layerOffset)
-                    )
-                    .blendMode(.screen)
-                
-                // Blue channel
-                RoundedRectangle(cornerRadius: configuration.cornerRadius)
-                    .fill(
-                        RadialGradient(
-                            colors: [.blue.opacity(0.1), .clear],
-                            center: .center,
-                            startRadius: 0,
-                            endRadius: configuration.distortionRadius + CGFloat(layer * 20)
-                        )
-                    )
-                    .offset(
-                        x: configuration.aberrationStrength * (1 + layerOffset),
-                        y: configuration.aberrationStrength * (1 + layerOffset)
-                    )
-                    .blendMode(.screen)
+            if configuration.enableGPU {
+                if #available(iOS 17.0, macOS 14.0, *) {
+                    gpuBaseMaterial
+                } else {
+                    cpuBaseMaterial
+                }
+            } else {
+                cpuBaseMaterial
             }
             
             // Glass highlight
@@ -333,6 +327,64 @@ private struct RefractiveLayer: View {
             )
         }
         .blur(radius: configuration.blurRadius / CGFloat(totalLayers - layer + 1))
+    }
+    
+    @available(iOS 17.0, macOS 14.0, *)
+    @ViewBuilder
+    private var gpuBaseMaterial: some View {
+        if configuration.chromaticAberration {
+            RoundedRectangle(cornerRadius: configuration.cornerRadius)
+                .fill(.ultraThinMaterial)
+                .opacity(0.3 + layerOffset * 0.2)
+                .gpuChromaticAberration(strength: configuration.aberrationStrength * (1 + layerOffset))
+        } else {
+            RoundedRectangle(cornerRadius: configuration.cornerRadius)
+                .fill(.ultraThinMaterial)
+                .opacity(0.3 + layerOffset * 0.2)
+        }
+    }
+
+    @ViewBuilder
+    private var cpuBaseMaterial: some View {
+        // Base glass material
+        RoundedRectangle(cornerRadius: configuration.cornerRadius)
+            .fill(.ultraThinMaterial)
+            .opacity(0.3 + layerOffset * 0.2)
+            
+        // Chromatic aberration layers
+        if configuration.chromaticAberration {
+            // Red channel
+            RoundedRectangle(cornerRadius: configuration.cornerRadius)
+                .fill(
+                    RadialGradient(
+                        colors: [.red.opacity(0.1), .clear],
+                        center: .center,
+                        startRadius: 0,
+                        endRadius: configuration.distortionRadius + CGFloat(layer * 20)
+                    )
+                )
+                .offset(
+                    x: -configuration.aberrationStrength * (1 + layerOffset),
+                    y: -configuration.aberrationStrength * (1 + layerOffset)
+                )
+                .blendMode(.screen)
+            
+            // Blue channel
+            RoundedRectangle(cornerRadius: configuration.cornerRadius)
+                .fill(
+                    RadialGradient(
+                        colors: [.blue.opacity(0.1), .clear],
+                        center: .center,
+                        startRadius: 0,
+                        endRadius: configuration.distortionRadius + CGFloat(layer * 20)
+                    )
+                )
+                .offset(
+                    x: configuration.aberrationStrength * (1 + layerOffset),
+                    y: configuration.aberrationStrength * (1 + layerOffset)
+                )
+                .blendMode(.screen)
+        }
     }
 }
 
@@ -415,6 +467,40 @@ public struct LensDistortionEffect: GeometryEffect {
     }
 }
 
+// MARK: - Lens Distortion Wrapper
+
+private struct LensDistortionWrapper: ViewModifier {
+    let configuration: RefractiveGlassConfiguration
+    let intensity: Double
+    
+    func body(content: Content) -> some View {
+        Group {
+            if configuration.enableGPU {
+                if #available(iOS 17.0, macOS 14.0, *) {
+                    GeometryReader { geometry in
+                        content
+                            .gpuLensDistortion(
+                                size: geometry.size,
+                                intensity: intensity,
+                                radius: configuration.distortionRadius
+                            )
+                    }
+                } else {
+                    content.modifier(LensDistortionEffect(
+                        intensity: intensity,
+                        radius: configuration.distortionRadius
+                    ))
+                }
+            } else {
+                content.modifier(LensDistortionEffect(
+                    intensity: intensity,
+                    radius: configuration.distortionRadius
+                ))
+            }
+        }
+    }
+}
+
 // MARK: - Advanced Refractive Glass
 
 public struct AdvancedRefractiveGlass<Content: View>: View {
@@ -434,9 +520,9 @@ public struct AdvancedRefractiveGlass<Content: View>: View {
     
     public var body: some View {
         content
-            .modifier(LensDistortionEffect(
-                intensity: configuration.distortionIntensity,
-                radius: configuration.distortionRadius
+            .modifier(LensDistortionWrapper(
+                configuration: configuration,
+                intensity: configuration.distortionIntensity
             ))
             .modifier(RefractiveGlassModifier(configuration: configuration))
     }
@@ -533,9 +619,9 @@ public struct RefractiveGlassCard<Content: View>: View {
             radius: configuration.shadowRadius,
             y: 15
         )
-        .modifier(LensDistortionEffect(
-            intensity: isHovered ? configuration.distortionIntensity * 1.5 : configuration.distortionIntensity,
-            radius: configuration.distortionRadius
+        .modifier(LensDistortionWrapper(
+            configuration: configuration,
+            intensity: isHovered ? configuration.distortionIntensity * 1.5 : configuration.distortionIntensity
         ))
         .scaleEffect(isPressed ? 0.98 : (isHovered ? 1.02 : 1.0))
         .animation(
