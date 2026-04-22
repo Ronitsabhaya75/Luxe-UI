@@ -34,7 +34,13 @@ Organic, "gooey" components that feel alive.
 *   **`LiquidProgress`**: Wave-filled progress bars.
 *   **`LiquidBlob`**: Standalone decorative elements that breath and morph.
 
-### 3. Smart Interactions
+### 3. Toast Notifications
+Premium feedback system for user-facing notifications.
+*   **`LuxeToast`**: Glassmorphic toast with 4 semantic styles (success, error, warning, info) + custom.
+*   **`LuxeToastManager`**: Environment-based queue with auto-dismiss, swipe-to-dismiss, and haptics.
+*   **`.luxeToast()` Modifier**: Single-line setup attaching the toast overlay.
+
+### 4. Smart Interactions
 *   **`SmartSpringEngine`**: Velocity-aware spring physics for natural motion.
 *   **`MagneticPull`**: Elements that subtly attract the cursor.
 

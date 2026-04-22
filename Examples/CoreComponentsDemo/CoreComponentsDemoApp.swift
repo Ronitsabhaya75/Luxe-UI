@@ -7,6 +7,7 @@ struct CoreComponentsDemoApp: App {
         WindowGroup {
             ContentView()
                 .frame(minWidth: 1000, idealWidth: 1200, minHeight: 800)
+                .luxeToast()
         }
         .windowStyle(.hiddenTitleBar)
     }
@@ -86,6 +87,7 @@ struct ContentView: View {
                     VStack(spacing: 32) {
                         ButtonsSection()
                         CardsSection()
+                        ToastSection()
                         ProgressSection(progress: $progress, sliderValues: $sliderValues)
                         ThemeSection(themes: themes, selectedTheme: $selectedTheme)
                     }
@@ -300,6 +302,59 @@ struct ThemeList: View {
                     }
                 }
             }
+        }
+    }
+}
+
+struct ToastSection: View {
+    @Environment(\.luxeToastManager) var toast
+    
+    var body: some View {
+        GlassmorphismContainer(configuration: .frosted) {
+            VStack(alignment: .leading, spacing: 24) {
+                HeaderView(title: "Toast Notifications", badge: "New")
+                
+                Text("Tap a button to trigger a toast notification")
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.7))
+                
+                HStack(spacing: 16) {
+                    LuxeButton("Success", style: .custom(
+                        background: [.green, .mint],
+                        foreground: .white,
+                        shadowColor: .green
+                    )) {
+                        toast.show("Changes saved!", style: .success)
+                    }
+                    
+                    LuxeButton("Error", style: .custom(
+                        background: [.red, .orange],
+                        foreground: .white,
+                        shadowColor: .red
+                    )) {
+                        toast.show("Upload failed", message: "Please check your connection and try again.", style: .error, configuration: .prominent)
+                    }
+                    
+                    LuxeButton("Warning", style: .custom(
+                        background: [.orange, .yellow],
+                        foreground: .white,
+                        shadowColor: .orange
+                    )) {
+                        toast.show("Low storage", message: "Only 2 GB remaining.", style: .warning)
+                    }
+                    
+                    LuxeButton("Info", style: .glass) {
+                        toast.show("Update available", message: "Version 2.0 is ready to install.", style: .info, configuration: .persistent)
+                    }
+                }
+                
+                HStack(spacing: 16) {
+                    LuxeButton("Dismiss All", style: .secondary) {
+                        toast.dismissAll()
+                    }
+                }
+            }
+            .padding(28)
         }
     }
 }
