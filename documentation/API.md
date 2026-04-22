@@ -31,6 +31,7 @@ Complete API documentation for LuxeUI - A premium SwiftUI component library with
   - [MultiThumbSlider](#multithumbslider)
   - [FloatingOrb](#floatingorb)
   - [MeshGradientBackground](#meshgradientbackground)
+  - [LuxeToast](#luxetoast)
 - [View Modifiers](#view-modifiers)
   - [.refractiveGlass()](#refractiveglass)
   - [.smartSprings()](#smartsprings)
@@ -809,6 +810,125 @@ MeshGradientBackground(
 | `.minimal` | 2 | Cleaner look |
 | `.vibrant` | 5 | Dynamic movement |
 | `.static` | 3 | No animation |
+
+---
+
+### LuxeToast
+
+Premium glassmorphic toast notification system with auto-dismiss, swipe-to-dismiss, and haptic feedback.
+
+#### Setup
+
+```swift
+// 1. Attach at root
+@main
+struct MyApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .luxeTheme(.midnight)
+                .luxeToast()           // Attach toast system
+        }
+    }
+}
+
+// 2. Show toasts from anywhere
+struct ContentView: View {
+    @Environment(\.luxeToastManager) var toast
+
+    var body: some View {
+        Button("Save") {
+            toast.show("Saved!", style: .success)
+        }
+    }
+}
+```
+
+#### Show Methods
+
+```swift
+// Simple toast
+toast.show("Done!", style: .success)
+
+// With message
+toast.show("Error", message: "Please try again.", style: .error)
+
+// With configuration
+toast.show("Uploading...", style: .info, configuration: .persistent)
+
+// Dismiss
+toast.dismiss(toastId)
+toast.dismissAll()
+```
+
+#### Styles
+
+| Style | Icon | Color Source | Description |
+|-------|------|-------------|-------------|
+| `.success` | `checkmark.circle.fill` | `theme.colors.success` | Positive confirmation |
+| `.error` | `xmark.circle.fill` | `theme.colors.error` | Failure or destructive |
+| `.warning` | `exclamationmark.triangle.fill` | `theme.colors.warning` | Caution |
+| `.info` | `info.circle.fill` | `theme.colors.info` | Neutral information |
+| `.custom(icon:color:glowColor:)` | User-defined | User-defined | Fully custom |
+
+#### Configuration Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `cornerRadius` | `CGFloat` | `16` | Corner radius |
+| `blurRadius` | `CGFloat` | `12` | Glass blur radius |
+| `backgroundOpacity` | `Double` | `0.15` | Background fill opacity |
+| `borderWidth` | `CGFloat` | `1` | Border stroke width |
+| `borderOpacity` | `Double` | `0.25` | Border opacity |
+| `paddingHorizontal` | `CGFloat` | `16` | Horizontal padding |
+| `paddingVertical` | `CGFloat` | `12` | Vertical padding |
+| `titleFontSize` | `CGFloat` | `14` | Title font size |
+| `titleFontWeight` | `Font.Weight` | `.semibold` | Title weight |
+| `messageFontSize` | `CGFloat` | `12` | Message font size |
+| `iconSize` | `CGFloat` | `20` | Leading icon size |
+| `autoDismissDuration` | `Double?` | `3.0` | Auto-dismiss seconds (nil = persistent) |
+| `animationResponse` | `Double` | `0.4` | Spring response |
+| `animationDamping` | `Double` | `0.75` | Spring damping |
+| `enableGlow` | `Bool` | `true` | Show glow effect |
+| `glowRadius` | `CGFloat` | `10` | Glow blur radius |
+| `glowOpacity` | `Double` | `0.4` | Glow opacity |
+| `enableHaptics` | `Bool` | `true` | Enable haptics |
+| `position` | `LuxeToastPosition` | `.top` | Screen position |
+| `enableSwipeToDismiss` | `Bool` | `true` | Swipe gesture |
+| `shadowRadius` | `CGFloat` | `15` | Shadow blur |
+| `shadowY` | `CGFloat` | `5` | Shadow Y offset |
+| `maxWidth` | `CGFloat?` | `420` | Max toast width |
+
+#### Configuration Presets
+
+| Preset | Auto-Dismiss | Description |
+|--------|-------------|-------------|
+| `.default` | 3s | Balanced glassmorphic toast |
+| `.compact` | 2s | Smaller padding and font |
+| `.prominent` | 5s | Larger text, stronger glow |
+| `.persistent` | None | Must be swiped away |
+| `.subtle` | 2.5s | Minimal, no glow |
+
+#### Position
+
+| Position | Description |
+|----------|-------------|
+| `.top` | Slides in from top edge |
+| `.bottom` | Slides in from bottom edge |
+
+#### Toast Manager
+
+```swift
+@Environment(\.luxeToastManager) var toast
+
+// Properties
+toast.maxVisibleToasts = 3  // Trim oldest when exceeded
+
+// Methods
+toast.show("Title", message: "Body", style: .success, configuration: .default)
+toast.dismiss(id)
+toast.dismissAll()
+```
 
 ---
 
